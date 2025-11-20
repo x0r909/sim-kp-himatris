@@ -1,6 +1,6 @@
+import { LoginForm } from '@/components/login-form';
 import { Head } from '@inertiajs/react';
 import { GalleryVerticalEnd } from 'lucide-react';
-import { LoginForm } from '@/components/login-form';
 
 interface LoginProps {
     status?: string;

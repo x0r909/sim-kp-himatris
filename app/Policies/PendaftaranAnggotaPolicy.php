@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\PendaftaranAnggota;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class PendaftaranAnggotaPolicy
 {
@@ -40,7 +39,7 @@ class PendaftaranAnggotaPolicy
     public function update(User $user, PendaftaranAnggota $pendaftaranAnggota): bool
     {
         // Hanya bisa update jika masih pending
-        return ($user->canAccessAllModules() || $user->isSekretaris()) 
+        return ($user->canAccessAllModules() || $user->isSekretaris())
             && $pendaftaranAnggota->status === 'pending';
     }
 

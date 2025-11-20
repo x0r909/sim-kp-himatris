@@ -1,5 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import {
     Table,
     TableBody,
@@ -13,7 +19,15 @@ import { dashboard } from '@/routes';
 import { create, destroy, edit, show } from '@/routes/keuangan';
 import { BreadcrumbItem, PageProps } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { ArrowDownIcon, ArrowUpIcon, EyeIcon, PencilIcon, PlusIcon, TrashIcon, WalletIcon } from 'lucide-react';
+import {
+    ArrowDownIcon,
+    ArrowUpIcon,
+    EyeIcon,
+    PencilIcon,
+    PlusIcon,
+    TrashIcon,
+    WalletIcon,
+} from 'lucide-react';
 
 interface Keuangan {
     id: number;
@@ -81,7 +95,9 @@ export default function Index({ keuangan, canManage }: KeuanganIndexProps) {
                             <WalletIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Transaksi Keuangan</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Transaksi Keuangan
+                            </h1>
                             <p className="text-sm text-muted-foreground">
                                 Kelola kas masuk dan keluar organisasi
                             </p>
@@ -109,19 +125,32 @@ export default function Index({ keuangan, canManage }: KeuanganIndexProps) {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="w-[140px]">Jenis</TableHead>
-                                        <TableHead className="w-[140px]">Tanggal</TableHead>
+                                        <TableHead className="w-[140px]">
+                                            Jenis
+                                        </TableHead>
+                                        <TableHead className="w-[140px]">
+                                            Tanggal
+                                        </TableHead>
                                         <TableHead>Kategori</TableHead>
-                                        <TableHead className="text-right">Nominal</TableHead>
-                                        <TableHead className="max-w-[300px]">Deskripsi</TableHead>
+                                        <TableHead className="text-right">
+                                            Nominal
+                                        </TableHead>
+                                        <TableHead className="max-w-[300px]">
+                                            Deskripsi
+                                        </TableHead>
                                         <TableHead>Dibuat Oleh</TableHead>
-                                        <TableHead className="text-center w-[180px]">Aksi</TableHead>
+                                        <TableHead className="w-[180px] text-center">
+                                            Aksi
+                                        </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {keuangan.data.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={7} className="h-32 text-center">
+                                            <TableCell
+                                                colSpan={7}
+                                                className="h-32 text-center"
+                                            >
                                                 <div className="flex flex-col items-center justify-center gap-2">
                                                     <WalletIcon className="h-8 w-8 text-muted-foreground/50" />
                                                     <p className="text-sm text-muted-foreground">
@@ -132,28 +161,41 @@ export default function Index({ keuangan, canManage }: KeuanganIndexProps) {
                                         </TableRow>
                                     ) : (
                                         keuangan.data.map((item) => (
-                                            <TableRow key={item.id} className="hover:bg-muted/50">
+                                            <TableRow
+                                                key={item.id}
+                                                className="hover:bg-muted/50"
+                                            >
                                                 <TableCell>
                                                     <span
                                                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${getJenisBadgeClass(item.jenis)}`}
                                                     >
-                                                        {item.jenis === 'masuk' ? (
+                                                        {item.jenis ===
+                                                        'masuk' ? (
                                                             <ArrowDownIcon className="h-3 w-3" />
                                                         ) : (
                                                             <ArrowUpIcon className="h-3 w-3" />
                                                         )}
-                                                        <span className="capitalize">{item.jenis}</span>
+                                                        <span className="capitalize">
+                                                            {item.jenis}
+                                                        </span>
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className="text-sm">
-                                                    {formatDate(item.tanggal_transaksi)}
+                                                    {formatDate(
+                                                        item.tanggal_transaksi,
+                                                    )}
                                                 </TableCell>
                                                 <TableCell className="font-medium">
                                                     {item.kategori}
                                                 </TableCell>
                                                 <TableCell className="text-right">
-                                                    <span className={`font-mono text-sm font-semibold ${item.jenis === 'masuk' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
-                                                        Rp {formatCurrency(item.nominal)}
+                                                    <span
+                                                        className={`font-mono text-sm font-semibold ${item.jenis === 'masuk' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}
+                                                    >
+                                                        Rp{' '}
+                                                        {formatCurrency(
+                                                            item.nominal,
+                                                        )}
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className="max-w-[300px]">
@@ -172,9 +214,15 @@ export default function Index({ keuangan, canManage }: KeuanganIndexProps) {
                                                             className="h-8 w-8 p-0"
                                                             asChild
                                                         >
-                                                            <Link href={show.url(item.id)}>
+                                                            <Link
+                                                                href={show.url(
+                                                                    item.id,
+                                                                )}
+                                                            >
                                                                 <EyeIcon className="h-4 w-4" />
-                                                                <span className="sr-only">Lihat</span>
+                                                                <span className="sr-only">
+                                                                    Lihat
+                                                                </span>
                                                             </Link>
                                                         </Button>
                                                         {canManage && (
@@ -185,19 +233,31 @@ export default function Index({ keuangan, canManage }: KeuanganIndexProps) {
                                                                     className="h-8 w-8 p-0"
                                                                     asChild
                                                                 >
-                                                                    <Link href={edit.url(item.id)}>
+                                                                    <Link
+                                                                        href={edit.url(
+                                                                            item.id,
+                                                                        )}
+                                                                    >
                                                                         <PencilIcon className="h-4 w-4" />
-                                                                        <span className="sr-only">Edit</span>
+                                                                        <span className="sr-only">
+                                                                            Edit
+                                                                        </span>
                                                                     </Link>
                                                                 </Button>
                                                                 <Button
                                                                     size="sm"
                                                                     variant="ghost"
                                                                     className="h-8 w-8 p-0 text-destructive hover:text-destructive"
-                                                                    onClick={() => handleDelete(item)}
+                                                                    onClick={() =>
+                                                                        handleDelete(
+                                                                            item,
+                                                                        )
+                                                                    }
                                                                 >
                                                                     <TrashIcon className="h-4 w-4" />
-                                                                    <span className="sr-only">Hapus</span>
+                                                                    <span className="sr-only">
+                                                                        Hapus
+                                                                    </span>
                                                                 </Button>
                                                             </>
                                                         )}

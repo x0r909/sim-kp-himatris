@@ -125,7 +125,7 @@ export default function Edit({ keuangan }: EditProps) {
                                     <span className="text-destructive">*</span>
                                 </Label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                    <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-muted-foreground">
                                         Rp
                                     </span>
                                     <Input
@@ -160,7 +160,9 @@ export default function Edit({ keuangan }: EditProps) {
                                         )
                                     }
                                 />
-                                <InputError message={errors.tanggal_transaksi} />
+                                <InputError
+                                    message={errors.tanggal_transaksi}
+                                />
                             </div>
                         </div>
 
@@ -205,8 +207,8 @@ export default function Edit({ keuangan }: EditProps) {
                                 onChange={handleFileChange}
                             />
                             <p className="text-xs text-muted-foreground">
-                                Format: PDF, JPG, PNG. Maksimal 2MB. Upload
-                                file baru akan mengganti file lama.
+                                Format: PDF, JPG, PNG. Maksimal 2MB. Upload file
+                                baru akan mengganti file lama.
                             </p>
                             <InputError message={errors.bukti_file} />
                         </div>

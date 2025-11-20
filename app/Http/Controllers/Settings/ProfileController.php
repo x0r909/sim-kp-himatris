@@ -31,10 +31,10 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-        
+
         // Save old foto path before fill
         $oldFoto = $user->foto;
-        
+
         // Fill validated data first (exclude foto from fill)
         $user->fill($request->except('foto'));
 

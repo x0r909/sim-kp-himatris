@@ -12,7 +12,13 @@ import { dashboard } from '@/routes';
 import { create, destroy, edit, show } from '@/routes/absensi';
 import { BreadcrumbItem, PageProps } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { ClipboardCheckIcon, EyeIcon, PencilIcon, PlusIcon, TrashIcon } from 'lucide-react';
+import {
+    ClipboardCheckIcon,
+    EyeIcon,
+    PencilIcon,
+    PlusIcon,
+    TrashIcon,
+} from 'lucide-react';
 
 interface Absensi {
     id: number;
@@ -107,7 +113,9 @@ export default function Index({ absensi }: AbsensiIndexProps) {
                                         <TableCell className="font-medium">
                                             {item.kegiatan_nama}
                                         </TableCell>
-                                        <TableCell>{item.anggota_nama}</TableCell>
+                                        <TableCell>
+                                            {item.anggota_nama}
+                                        </TableCell>
                                         <TableCell>
                                             <span
                                                 className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold capitalize ${getStatusBadgeClass(item.status_hadir)}`}
@@ -115,7 +123,9 @@ export default function Index({ absensi }: AbsensiIndexProps) {
                                                 {item.status_hadir}
                                             </span>
                                         </TableCell>
-                                        <TableCell>{item.waktu_absen}</TableCell>
+                                        <TableCell>
+                                            {item.waktu_absen}
+                                        </TableCell>
                                         <TableCell className="text-right">
                                             <div className="flex justify-end gap-2">
                                                 <Button
@@ -123,7 +133,9 @@ export default function Index({ absensi }: AbsensiIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={show.url(item.id)}>
+                                                    <Link
+                                                        href={show.url(item.id)}
+                                                    >
                                                         <EyeIcon className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -132,7 +144,9 @@ export default function Index({ absensi }: AbsensiIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={edit.url(item.id)}>
+                                                    <Link
+                                                        href={edit.url(item.id)}
+                                                    >
                                                         <PencilIcon className="size-4" />
                                                     </Link>
                                                 </Button>

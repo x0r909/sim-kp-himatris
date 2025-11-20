@@ -32,11 +32,12 @@ export default function Profile({
     mustVerifyEmail: boolean;
     status?: string;
 }) {
-    const { auth, flash } = usePage<SharedData>().props;
+    const { auth } = usePage<SharedData>().props;
     const [cropDialogOpen, setCropDialogOpen] = useState(false);
     const [tempImageSrc, setTempImageSrc] = useState('');
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-    const initials = useInitials(auth.user.name);
+    const getInitials = useInitials();
+    const initials = getInitials(auth.user.name);
 
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
@@ -56,7 +57,7 @@ export default function Profile({
                 setCropDialogOpen(true);
             };
             reader.readAsDataURL(file);
-            
+
             // Reset input value to allow selecting the same file again
             e.target.value = '';
         }
@@ -151,7 +152,10 @@ export default function Profile({
                                 placeholder="Full name"
                             />
 
-                            <InputError className="mt-2" message={errors.name} />
+                            <InputError
+                                className="mt-2"
+                                message={errors.name}
+                            />
                         </div>
 
                         <div className="grid gap-2">
@@ -236,7 +240,7 @@ export default function Profile({
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
-                                <p className="text-sm text-green-600 font-medium">
+                                <p className="text-sm font-medium text-green-600">
                                     Profile updated successfully!
                                 </p>
                             </Transition>

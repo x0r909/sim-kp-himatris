@@ -44,7 +44,7 @@ class Anggota extends Model
 
     public function getStatusPeringatanAttribute(): ?string
     {
-        return match($this->sp_level) {
+        return match ($this->sp_level) {
             1 => 'SP1',
             2 => 'SP2',
             3 => 'SP3',

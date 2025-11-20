@@ -26,7 +26,7 @@ export function ImageCropDialog({
     const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(
-        null
+        null,
     );
 
     const onCropChange = (crop: Point) => {
@@ -41,7 +41,7 @@ export function ImageCropDialog({
         (croppedArea: Area, croppedAreaPixels: Area) => {
             setCroppedAreaPixels(croppedAreaPixels);
         },
-        []
+        [],
     );
 
     const createCroppedImage = async () => {
@@ -71,7 +71,7 @@ export function ImageCropDialog({
             0,
             0,
             croppedAreaPixels.width,
-            croppedAreaPixels.height
+            croppedAreaPixels.height,
         );
 
         return new Promise<File>((resolve) => {

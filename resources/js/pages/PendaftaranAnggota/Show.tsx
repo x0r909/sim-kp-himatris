@@ -1,12 +1,13 @@
-import AppLayout from '@/layouts/app-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { index as pendaftaranIndex } from '@/actions/App/Http/Controllers/PendaftaranAnggotaController';
 import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Link, router, useForm } from '@inertiajs/react';
-import { useState } from 'react';
-import { ArrowLeft, CheckCircle, XCircle, User, Mail, Phone, Calendar, MapPin, FileText, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import {
     Dialog,
     DialogContent,
@@ -15,7 +16,23 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { index as pendaftaranIndex } from '@/actions/App/Http/Controllers/PendaftaranAnggotaController';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/app-layout';
+import { Link, router, useForm } from '@inertiajs/react';
+import {
+    ArrowLeft,
+    Calendar,
+    CheckCircle,
+    Clock,
+    FileText,
+    Mail,
+    MapPin,
+    Phone,
+    User,
+    XCircle,
+} from 'lucide-react';
+import { useState } from 'react';
 
 interface Reviewer {
     id: number;
@@ -48,16 +65,20 @@ interface ShowProps {
 
 export default function Show({ pendaftaran, canManage }: ShowProps) {
     const [showRejectDialog, setShowRejectDialog] = useState(false);
-    
+
     const { data, setData, post, processing, reset } = useForm({
         catatan_penolakan: '',
     });
 
     const handleApprove = () => {
         if (confirm('Apakah Anda yakin ingin menyetujui pendaftaran ini?')) {
-            router.post(`/pendaftaran-anggota/${pendaftaran.id}/approve`, {}, {
-                preserveScroll: true,
-            });
+            router.post(
+                `/pendaftaran-anggota/${pendaftaran.id}/approve`,
+                {},
+                {
+                    preserveScroll: true,
+                },
+            );
         }
     };
 
@@ -74,11 +95,32 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
     const getStatusBadge = (status: string) => {
         switch (status) {
             case 'pending':
-                return <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200"><Clock className="w-3 h-3 mr-1" /> Pending</Badge>;
+                return (
+                    <Badge
+                        variant="outline"
+                        className="border-yellow-200 bg-yellow-50 text-yellow-700"
+                    >
+                        <Clock className="mr-1 h-3 w-3" /> Pending
+                    </Badge>
+                );
             case 'approved':
-                return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200"><CheckCircle className="w-3 h-3 mr-1" /> Disetujui</Badge>;
+                return (
+                    <Badge
+                        variant="outline"
+                        className="border-green-200 bg-green-50 text-green-700"
+                    >
+                        <CheckCircle className="mr-1 h-3 w-3" /> Disetujui
+                    </Badge>
+                );
             case 'rejected':
-                return <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200"><XCircle className="w-3 h-3 mr-1" /> Ditolak</Badge>;
+                return (
+                    <Badge
+                        variant="outline"
+                        className="border-red-200 bg-red-50 text-red-700"
+                    >
+                        <XCircle className="mr-1 h-3 w-3" /> Ditolak
+                    </Badge>
+                );
         }
     };
 
@@ -86,27 +128,29 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
         <AppLayout>
             <div className="space-y-6">
                 {/* Header */}
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
-                        <div className="flex items-center gap-4 mb-2">
+                        <div className="mb-2 flex items-center gap-4">
                             <Link href={pendaftaranIndex.url()}>
                                 <Button variant="ghost" size="sm">
-                                    <ArrowLeft className="w-4 h-4 mr-2" />
+                                    <ArrowLeft className="mr-2 h-4 w-4" />
                                     Kembali
                                 </Button>
                             </Link>
                         </div>
-                        <h1 className="text-3xl font-bold tracking-tight">Detail Pendaftaran</h1>
-                        <p className="text-muted-foreground mt-1">Informasi lengkap calon anggota</p>
+                        <h1 className="text-3xl font-bold tracking-tight">
+                            Detail Pendaftaran
+                        </h1>
+                        <p className="mt-1 text-muted-foreground">
+                            Informasi lengkap calon anggota
+                        </p>
                     </div>
-                    <div>
-                        {getStatusBadge(pendaftaran.status)}
-                    </div>
+                    <div>{getStatusBadge(pendaftaran.status)}</div>
                 </div>
 
                 <div className="grid gap-6 md:grid-cols-3">
                     {/* Main Info */}
-                    <div className="md:col-span-2 space-y-6">
+                    <div className="space-y-6 md:col-span-2">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Data Diri</CardTitle>
@@ -114,54 +158,78 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                             <CardContent className="space-y-4">
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="flex items-start gap-3">
-                                        <User className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                        <User className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                         <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">Nama Lengkap</p>
-                                            <p className="font-medium">{pendaftaran.nama_lengkap}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
-                                        <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">NIM</p>
-                                            <p className="font-medium">{pendaftaran.nim}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <Mail className="h-5 w-5 text-muted-foreground mt-0.5" />
-                                        <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">Email</p>
-                                            <p className="font-medium">{pendaftaran.email}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <Phone className="h-5 w-5 text-muted-foreground mt-0.5" />
-                                        <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">No. HP</p>
-                                            <p className="font-medium">{pendaftaran.no_hp}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <User className="h-5 w-5 text-muted-foreground mt-0.5" />
-                                        <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">Jenis Kelamin</p>
-                                            <p className="font-medium">{pendaftaran.jenis_kelamin}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-start gap-3">
-                                        <Calendar className="h-5 w-5 text-muted-foreground mt-0.5" />
-                                        <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground">Tanggal Daftar</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Nama Lengkap
+                                            </p>
                                             <p className="font-medium">
-                                                {new Date(pendaftaran.created_at).toLocaleDateString('id-ID', {
+                                                {pendaftaran.nama_lengkap}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <FileText className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                                        <div className="flex-1">
+                                            <p className="text-sm text-muted-foreground">
+                                                NIM
+                                            </p>
+                                            <p className="font-medium">
+                                                {pendaftaran.nim}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <Mail className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                                        <div className="flex-1">
+                                            <p className="text-sm text-muted-foreground">
+                                                Email
+                                            </p>
+                                            <p className="font-medium">
+                                                {pendaftaran.email}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <Phone className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                                        <div className="flex-1">
+                                            <p className="text-sm text-muted-foreground">
+                                                No. HP
+                                            </p>
+                                            <p className="font-medium">
+                                                {pendaftaran.no_hp}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <User className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                                        <div className="flex-1">
+                                            <p className="text-sm text-muted-foreground">
+                                                Jenis Kelamin
+                                            </p>
+                                            <p className="font-medium">
+                                                {pendaftaran.jenis_kelamin}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-start gap-3">
+                                        <Calendar className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                                        <div className="flex-1">
+                                            <p className="text-sm text-muted-foreground">
+                                                Tanggal Daftar
+                                            </p>
+                                            <p className="font-medium">
+                                                {new Date(
+                                                    pendaftaran.created_at,
+                                                ).toLocaleDateString('id-ID', {
                                                     day: 'numeric',
                                                     month: 'long',
-                                                    year: 'numeric'
+                                                    year: 'numeric',
                                                 })}
                                             </p>
                                         </div>
@@ -170,10 +238,14 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
 
                                 {pendaftaran.alamat && (
                                     <div className="flex items-start gap-3 border-t pt-4">
-                                        <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                        <MapPin className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                         <div className="flex-1">
-                                            <p className="text-sm text-muted-foreground mb-1">Alamat</p>
-                                            <p className="font-medium">{pendaftaran.alamat}</p>
+                                            <p className="mb-1 text-sm text-muted-foreground">
+                                                Alamat
+                                            </p>
+                                            <p className="font-medium">
+                                                {pendaftaran.alamat}
+                                            </p>
                                         </div>
                                     </div>
                                 )}
@@ -187,12 +259,20 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                             <CardContent>
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div>
-                                        <p className="text-sm text-muted-foreground mb-1">Jurusan</p>
-                                        <p className="font-medium">{pendaftaran.jurusan}</p>
+                                        <p className="mb-1 text-sm text-muted-foreground">
+                                            Jurusan
+                                        </p>
+                                        <p className="font-medium">
+                                            {pendaftaran.jurusan}
+                                        </p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-muted-foreground mb-1">Angkatan</p>
-                                        <p className="font-medium">{pendaftaran.angkatan}</p>
+                                        <p className="mb-1 text-sm text-muted-foreground">
+                                            Angkatan
+                                        </p>
+                                        <p className="font-medium">
+                                            {pendaftaran.angkatan}
+                                        </p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -204,25 +284,28 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                                     <CardTitle>Alasan Bergabung</CardTitle>
                                 </CardHeader>
                                 <CardContent>
-                                    <p className="text-muted-foreground whitespace-pre-wrap">
+                                    <p className="whitespace-pre-wrap text-muted-foreground">
                                         {pendaftaran.alasan_bergabung}
                                     </p>
                                 </CardContent>
                             </Card>
                         )}
 
-                        {pendaftaran.status === 'rejected' && pendaftaran.catatan_penolakan && (
-                            <Card className="border-red-200 bg-red-50/50 dark:bg-red-950/20">
-                                <CardHeader>
-                                    <CardTitle className="text-red-700 dark:text-red-400">Alasan Penolakan</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <p className="text-muted-foreground whitespace-pre-wrap">
-                                        {pendaftaran.catatan_penolakan}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        )}
+                        {pendaftaran.status === 'rejected' &&
+                            pendaftaran.catatan_penolakan && (
+                                <Card className="border-red-200 bg-red-50/50 dark:bg-red-950/20">
+                                    <CardHeader>
+                                        <CardTitle className="text-red-700 dark:text-red-400">
+                                            Alasan Penolakan
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <p className="whitespace-pre-wrap text-muted-foreground">
+                                            {pendaftaran.catatan_penolakan}
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            )}
                     </div>
 
                     {/* Sidebar */}
@@ -249,16 +332,25 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                                 </CardHeader>
                                 <CardContent className="space-y-3">
                                     <div>
-                                        <p className="text-sm text-muted-foreground mb-1">Direview oleh</p>
-                                        <p className="font-medium">{pendaftaran.reviewer?.name || 'N/A'}</p>
+                                        <p className="mb-1 text-sm text-muted-foreground">
+                                            Direview oleh
+                                        </p>
+                                        <p className="font-medium">
+                                            {pendaftaran.reviewer?.name ||
+                                                'N/A'}
+                                        </p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-muted-foreground mb-1">Tanggal Review</p>
+                                        <p className="mb-1 text-sm text-muted-foreground">
+                                            Tanggal Review
+                                        </p>
                                         <p className="font-medium">
-                                            {new Date(pendaftaran.reviewed_at).toLocaleDateString('id-ID', {
+                                            {new Date(
+                                                pendaftaran.reviewed_at,
+                                            ).toLocaleDateString('id-ID', {
                                                 day: 'numeric',
                                                 month: 'long',
-                                                year: 'numeric'
+                                                year: 'numeric',
                                             })}
                                         </p>
                                     </div>
@@ -281,16 +373,18 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                                         onClick={handleApprove}
                                         disabled={processing}
                                     >
-                                        <CheckCircle className="w-4 h-4 mr-2" />
+                                        <CheckCircle className="mr-2 h-4 w-4" />
                                         Setujui Pendaftaran
                                     </Button>
                                     <Button
                                         className="w-full"
                                         variant="destructive"
-                                        onClick={() => setShowRejectDialog(true)}
+                                        onClick={() =>
+                                            setShowRejectDialog(true)
+                                        }
                                         disabled={processing}
                                     >
-                                        <XCircle className="w-4 h-4 mr-2" />
+                                        <XCircle className="mr-2 h-4 w-4" />
                                         Tolak Pendaftaran
                                     </Button>
                                 </CardContent>
@@ -306,23 +400,31 @@ export default function Show({ pendaftaran, canManage }: ShowProps) {
                     <DialogHeader>
                         <DialogTitle>Tolak Pendaftaran</DialogTitle>
                         <DialogDescription>
-                            Berikan alasan penolakan yang jelas kepada calon anggota
+                            Berikan alasan penolakan yang jelas kepada calon
+                            anggota
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="catatan_penolakan">Alasan Penolakan *</Label>
+                            <Label htmlFor="catatan_penolakan">
+                                Alasan Penolakan *
+                            </Label>
                             <Textarea
                                 id="catatan_penolakan"
                                 value={data.catatan_penolakan}
-                                onChange={(e) => setData('catatan_penolakan', e.target.value)}
+                                onChange={(e) =>
+                                    setData('catatan_penolakan', e.target.value)
+                                }
                                 placeholder="Jelaskan alasan penolakan..."
                                 rows={4}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowRejectDialog(false)}>
+                        <Button
+                            variant="outline"
+                            onClick={() => setShowRejectDialog(false)}
+                        >
                             Batal
                         </Button>
                         <Button

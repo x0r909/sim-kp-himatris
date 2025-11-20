@@ -1,10 +1,29 @@
-import AppLayout from '@/layouts/app-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link, router } from '@inertiajs/react';
-import { CalendarIcon, Clock, MapPin, User, FileText, Edit, Trash, CalendarCheck } from 'lucide-react';
-import { index as agendaIndex, edit as agendaEdit, destroy as agendaDestroy } from '@/actions/App/Http/Controllers/AgendaController';
+import {
+    destroy as agendaDestroy,
+    edit as agendaEdit,
+    index as agendaIndex,
+} from '@/actions/App/Http/Controllers/AgendaController';
 import { show as kegiatanShow } from '@/actions/App/Http/Controllers/KegiatanController';
+import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import AppLayout from '@/layouts/app-layout';
+import { Link, router } from '@inertiajs/react';
+import {
+    CalendarCheck,
+    CalendarIcon,
+    Clock,
+    Edit,
+    FileText,
+    MapPin,
+    Trash,
+    User,
+} from 'lucide-react';
 
 interface AgendaItem {
     id: number;
@@ -122,7 +141,9 @@ export default function Show({ agenda, canManage }: ShowProps) {
                             <CalendarIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Detail Agenda</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Detail Agenda
+                            </h1>
                             <p className="text-sm text-muted-foreground">
                                 Informasi lengkap agenda kegiatan
                             </p>
@@ -130,17 +151,26 @@ export default function Show({ agenda, canManage }: ShowProps) {
                     </div>
                     <div className="flex gap-2">
                         <Link href={agendaIndex.url()}>
-                            <Button variant="outline" className="shadow-sm">Kembali</Button>
+                            <Button variant="outline" className="shadow-sm">
+                                Kembali
+                            </Button>
                         </Link>
                         {canManage && (
                             <>
                                 <Link href={agendaEdit.url(agenda.id)}>
-                                    <Button variant="outline" className="shadow-sm">
+                                    <Button
+                                        variant="outline"
+                                        className="shadow-sm"
+                                    >
                                         <Edit className="mr-2 h-4 w-4" />
                                         Edit
                                     </Button>
                                 </Link>
-                                <Button variant="destructive" onClick={handleDelete} className="shadow-sm">
+                                <Button
+                                    variant="destructive"
+                                    onClick={handleDelete}
+                                    className="shadow-sm"
+                                >
                                     <Trash className="mr-2 h-4 w-4" />
                                     Hapus
                                 </Button>
@@ -150,21 +180,31 @@ export default function Show({ agenda, canManage }: ShowProps) {
                 </div>
 
                 {/* Status Card */}
-                <Card className={`shadow-sm ${agenda.status === 'published' ? 'border-green-300 bg-green-50/50 dark:bg-green-950/20' : agenda.status === 'completed' ? 'border-blue-300 bg-blue-50/50 dark:bg-blue-950/20' : agenda.status === 'cancelled' ? 'border-red-300 bg-red-50/50 dark:bg-red-950/20' : 'border-yellow-300 bg-yellow-50/50 dark:bg-yellow-950/20'}`}>
+                <Card
+                    className={`shadow-sm ${agenda.status === 'published' ? 'border-green-300 bg-green-50/50 dark:bg-green-950/20' : agenda.status === 'completed' ? 'border-blue-300 bg-blue-50/50 dark:bg-blue-950/20' : agenda.status === 'cancelled' ? 'border-red-300 bg-red-50/50 dark:bg-red-950/20' : 'border-yellow-300 bg-yellow-50/50 dark:bg-yellow-950/20'}`}
+                >
                     <CardContent className="pt-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-muted-foreground mb-2">Status Agenda</p>
+                                <p className="mb-2 text-sm text-muted-foreground">
+                                    Status Agenda
+                                </p>
                                 <div className="flex gap-2">
-                                    <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${getStatusBadgeClass(agenda.status)}`}>
+                                    <span
+                                        className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${getStatusBadgeClass(agenda.status)}`}
+                                    >
                                         {getStatusText(agenda.status)}
                                     </span>
-                                    <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${getJenisBadgeClass(agenda.jenis)}`}>
+                                    <span
+                                        className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${getJenisBadgeClass(agenda.jenis)}`}
+                                    >
                                         {getJenisText(agenda.jenis)}
                                     </span>
                                 </div>
                             </div>
-                            <CalendarIcon className={`h-12 w-12 ${agenda.status === 'published' ? 'text-green-500' : agenda.status === 'completed' ? 'text-blue-500' : agenda.status === 'cancelled' ? 'text-red-500' : 'text-yellow-500'}`} />
+                            <CalendarIcon
+                                className={`h-12 w-12 ${agenda.status === 'published' ? 'text-green-500' : agenda.status === 'completed' ? 'text-blue-500' : agenda.status === 'cancelled' ? 'text-red-500' : 'text-yellow-500'}`}
+                            />
                         </div>
                     </CardContent>
                 </Card>
@@ -172,25 +212,41 @@ export default function Show({ agenda, canManage }: ShowProps) {
                 {/* Main Information */}
                 <Card className="shadow-sm">
                     <CardHeader>
-                        <CardTitle className="text-2xl">{agenda.judul}</CardTitle>
-                        <CardDescription>Informasi utama kegiatan</CardDescription>
+                        <CardTitle className="text-2xl">
+                            {agenda.judul}
+                        </CardTitle>
+                        <CardDescription>
+                            Informasi utama kegiatan
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         {/* Datetime & Location */}
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="space-y-3">
                                 <div className="flex items-start gap-3">
-                                    <Clock className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <Clock className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Waktu Mulai</p>
-                                        <p className="font-medium">{formatDateTime(agenda.tanggal_mulai)}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Waktu Mulai
+                                        </p>
+                                        <p className="font-medium">
+                                            {formatDateTime(
+                                                agenda.tanggal_mulai,
+                                            )}
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
-                                    <Clock className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <Clock className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Waktu Selesai</p>
-                                        <p className="font-medium">{formatDateTime(agenda.tanggal_selesai)}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Waktu Selesai
+                                        </p>
+                                        <p className="font-medium">
+                                            {formatDateTime(
+                                                agenda.tanggal_selesai,
+                                            )}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -198,19 +254,29 @@ export default function Show({ agenda, canManage }: ShowProps) {
                             <div className="space-y-3">
                                 {agenda.lokasi && (
                                     <div className="flex items-start gap-3">
-                                        <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                        <MapPin className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                         <div>
-                                            <p className="text-sm text-muted-foreground">Lokasi</p>
-                                            <p className="font-medium">{agenda.lokasi}</p>
+                                            <p className="text-sm text-muted-foreground">
+                                                Lokasi
+                                            </p>
+                                            <p className="font-medium">
+                                                {agenda.lokasi}
+                                            </p>
                                         </div>
                                     </div>
                                 )}
                                 <div className="flex items-start gap-3">
-                                    <User className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <User className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Penanggung Jawab</p>
-                                        <p className="font-medium">{agenda.penanggung_jawab.name}</p>
-                                        <p className="text-sm text-muted-foreground">{agenda.penanggung_jawab.email}</p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Penanggung Jawab
+                                        </p>
+                                        <p className="font-medium">
+                                            {agenda.penanggung_jawab.name}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            {agenda.penanggung_jawab.email}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -220,10 +286,14 @@ export default function Show({ agenda, canManage }: ShowProps) {
                         {agenda.deskripsi && (
                             <div className="border-t pt-4">
                                 <div className="flex items-start gap-3">
-                                    <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <FileText className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div className="flex-1">
-                                        <p className="text-sm text-muted-foreground mb-2">Deskripsi</p>
-                                        <p className="whitespace-pre-wrap">{agenda.deskripsi}</p>
+                                        <p className="mb-2 text-sm text-muted-foreground">
+                                            Deskripsi
+                                        </p>
+                                        <p className="whitespace-pre-wrap">
+                                            {agenda.deskripsi}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -233,12 +303,24 @@ export default function Show({ agenda, canManage }: ShowProps) {
                         {agenda.kegiatan && (
                             <div className="border-t pt-4">
                                 <div className="flex items-start gap-3">
-                                    <CalendarCheck className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <CalendarCheck className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div className="flex-1">
-                                        <p className="text-sm text-muted-foreground mb-2">Terhubung dengan Kegiatan</p>
-                                        <Link href={kegiatanShow.url(agenda.kegiatan.id)}>
-                                            <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
-                                                {agenda.kegiatan.nama_kegiatan} - {agenda.kegiatan.tanggal_mulai} →
+                                        <p className="mb-2 text-sm text-muted-foreground">
+                                            Terhubung dengan Kegiatan
+                                        </p>
+                                        <Link
+                                            href={kegiatanShow.url(
+                                                agenda.kegiatan.id,
+                                            )}
+                                        >
+                                            <Button
+                                                variant="link"
+                                                className="h-auto p-0 text-primary hover:text-primary/80"
+                                            >
+                                                {agenda.kegiatan.nama_kegiatan}{' '}
+                                                -{' '}
+                                                {agenda.kegiatan.tanggal_mulai}{' '}
+                                                →
                                             </Button>
                                         </Link>
                                     </div>
@@ -250,11 +332,15 @@ export default function Show({ agenda, canManage }: ShowProps) {
                         {agenda.catatan && (
                             <div className="border-t pt-4">
                                 <div className="flex items-start gap-3">
-                                    <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                    <FileText className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                     <div className="flex-1">
-                                        <p className="text-sm text-muted-foreground mb-2">Catatan</p>
-                                        <div className="rounded-lg bg-muted/50 p-4 border">
-                                            <p className="whitespace-pre-wrap text-sm">{agenda.catatan}</p>
+                                        <p className="mb-2 text-sm text-muted-foreground">
+                                            Catatan
+                                        </p>
+                                        <div className="rounded-lg border bg-muted/50 p-4">
+                                            <p className="text-sm whitespace-pre-wrap">
+                                                {agenda.catatan}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -267,23 +353,37 @@ export default function Show({ agenda, canManage }: ShowProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Informasi Tambahan</CardTitle>
-                        <CardDescription>Riwayat dan metadata agenda</CardDescription>
+                        <CardDescription>
+                            Riwayat dan metadata agenda
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid gap-4 md:grid-cols-2 text-sm">
+                        <div className="grid gap-4 text-sm md:grid-cols-2">
                             <div>
-                                <p className="text-muted-foreground">Dibuat Oleh</p>
-                                <p className="font-medium">{agenda.creator.name}</p>
-                                <p className="text-xs text-muted-foreground mt-1">
-                                    {new Date(agenda.created_at).toLocaleString('id-ID')}
+                                <p className="text-muted-foreground">
+                                    Dibuat Oleh
+                                </p>
+                                <p className="font-medium">
+                                    {agenda.creator.name}
+                                </p>
+                                <p className="mt-1 text-xs text-muted-foreground">
+                                    {new Date(agenda.created_at).toLocaleString(
+                                        'id-ID',
+                                    )}
                                 </p>
                             </div>
                             {agenda.updater && (
                                 <div>
-                                    <p className="text-muted-foreground">Terakhir Diubah Oleh</p>
-                                    <p className="font-medium">{agenda.updater.name}</p>
-                                    <p className="text-xs text-muted-foreground mt-1">
-                                        {new Date(agenda.updated_at).toLocaleString('id-ID')}
+                                    <p className="text-muted-foreground">
+                                        Terakhir Diubah Oleh
+                                    </p>
+                                    <p className="font-medium">
+                                        {agenda.updater.name}
+                                    </p>
+                                    <p className="mt-1 text-xs text-muted-foreground">
+                                        {new Date(
+                                            agenda.updated_at,
+                                        ).toLocaleString('id-ID')}
                                     </p>
                                 </div>
                             )}

@@ -18,7 +18,7 @@ class StoreAnggotaRequest extends FormRequest
             'nim' => ['required', 'string', 'max:255', 'unique:anggota'],
             'jurusan' => ['required', 'string', 'max:255'],
             'jabatan' => ['required', 'string', 'max:255'],
-            'tahun_masuk' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+            'tahun_masuk' => ['required', 'integer', 'min:1900', 'max:'.date('Y')],
             'status' => ['required', Rule::in(['aktif', 'nonaktif', 'alumni'])],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
             'sp_level' => ['nullable', 'integer', 'between:0,3'],

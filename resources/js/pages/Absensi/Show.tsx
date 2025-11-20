@@ -144,7 +144,8 @@ export default function Show({ absensi }: ShowProps) {
                                             absensi.kegiatan.tanggal_mulai,
                                         )}
                                         {absensi.kegiatan.tanggal_mulai !==
-                                            absensi.kegiatan.tanggal_selesai && (
+                                            absensi.kegiatan
+                                                .tanggal_selesai && (
                                             <>
                                                 {' - '}
                                                 {formatDate(

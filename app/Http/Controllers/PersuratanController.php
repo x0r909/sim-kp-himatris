@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 

@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-use function Pest\Laravel\{actingAs, assertDatabaseHas, assertDatabaseMissing};
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
 
 beforeEach(function () {
     Storage::fake('public');

@@ -57,7 +57,7 @@ class AuditKeuanganController extends Controller
             ->map(function ($item) {
                 return [
                     'id' => $item->id,
-                    'label' => "{$item->jenis} - {$item->kategori} - Rp " . number_format($item->nominal, 0, ',', '.') . " ({$item->tanggal_transaksi->format('d/m/Y')})",
+                    'label' => "{$item->jenis} - {$item->kategori} - Rp ".number_format($item->nominal, 0, ',', '.')." ({$item->tanggal_transaksi->format('d/m/Y')})",
                 ];
             });
 

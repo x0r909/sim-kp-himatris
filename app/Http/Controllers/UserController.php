@@ -14,6 +14,7 @@ use Inertia\Response;
 class UserController extends Controller
 {
     use AuthorizesRequests;
+
     public function index(): Response
     {
         $this->authorize('viewAny', User::class);
@@ -75,7 +76,7 @@ class UserController extends Controller
 
         // Save old foto path before processing
         $oldFoto = $user->foto;
-        
+
         $data = $request->validated();
 
         if ($request->hasFile('foto')) {
@@ -111,4 +112,3 @@ class UserController extends Controller
             ->with('success', 'User berhasil dihapus');
     }
 }
-

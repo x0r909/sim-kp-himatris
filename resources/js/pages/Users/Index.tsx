@@ -27,7 +27,7 @@ interface User {
 interface UsersIndexProps extends PageProps {
     users: {
         data: User[];
-        links: any[];
+        links: { url: string | null; label: string; active: boolean }[];
         current_page: number;
         last_page: number;
     };
@@ -144,7 +144,7 @@ export default function Index({ users }: UsersIndexProps) {
                                         </TableCell>
                                         <TableCell>
                                             {new Date(
-                                                user.created_at
+                                                user.created_at,
                                             ).toLocaleDateString('id-ID')}
                                         </TableCell>
                                         <TableCell className="text-right">
@@ -154,7 +154,9 @@ export default function Index({ users }: UsersIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={edit.url(user.id)}>
+                                                    <Link
+                                                        href={edit.url(user.id)}
+                                                    >
                                                         <PencilIcon className="size-4" />
                                                     </Link>
                                                 </Button>

@@ -67,7 +67,8 @@ export default function Edit({ suratMasuk }: EditProps) {
                     <div className="grid gap-6 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="nomor_surat">
-                                Nomor Surat <span className="text-red-500">*</span>
+                                Nomor Surat{' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="nomor_surat"
@@ -99,7 +100,8 @@ export default function Edit({ suratMasuk }: EditProps) {
 
                         <div className="space-y-2">
                             <Label htmlFor="tanggal_masuk">
-                                Tanggal Masuk <span className="text-red-500">*</span>
+                                Tanggal Masuk{' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="tanggal_masuk"
@@ -121,12 +123,17 @@ export default function Edit({ suratMasuk }: EditProps) {
                                 type="file"
                                 accept=".pdf,.jpg,.jpeg,.png"
                                 onChange={(e) =>
-                                    setData('file_surat', e.target.files?.[0] || null)
+                                    setData(
+                                        'file_surat',
+                                        e.target.files?.[0] || null,
+                                    )
                                 }
                             />
                             <InputError message={errors.file_surat} />
                             <p className="text-xs text-muted-foreground">
-                                File saat ini: {suratMasuk.file_surat.split('/').pop()} | Maksimal 5MB
+                                File saat ini:{' '}
+                                {suratMasuk.file_surat.split('/').pop()} |
+                                Maksimal 5MB
                             </p>
                         </div>
                     </div>
@@ -139,9 +146,7 @@ export default function Edit({ suratMasuk }: EditProps) {
                             id="perihal"
                             type="text"
                             value={data.perihal}
-                            onChange={(e) =>
-                                setData('perihal', e.target.value)
-                            }
+                            onChange={(e) => setData('perihal', e.target.value)}
                             placeholder="Perihal surat"
                         />
                         <InputError message={errors.perihal} />
@@ -166,9 +171,7 @@ export default function Edit({ suratMasuk }: EditProps) {
                             <Link href={index.url()}>Batal</Link>
                         </Button>
                         <Button type="submit" disabled={processing}>
-                            {processing && (
-                                <Spinner className="mr-2 size-4" />
-                            )}
+                            {processing && <Spinner className="mr-2 size-4" />}
                             Perbarui
                         </Button>
                     </div>

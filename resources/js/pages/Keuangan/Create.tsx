@@ -14,7 +14,7 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { index, store } from '@/routes/keuangan';
-import { BreadcrumbItem, PageProps } from '@/types';
+import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Tambah Transaksi', href: '#' },
 ];
 
-export default function Create({}: PageProps) {
+export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
         jenis: '',
         kategori: '',
@@ -53,7 +53,9 @@ export default function Create({}: PageProps) {
 
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
                 <div>
-                    <h1 className="text-2xl font-bold">Tambah Transaksi Baru</h1>
+                    <h1 className="text-2xl font-bold">
+                        Tambah Transaksi Baru
+                    </h1>
                     <p className="text-sm text-muted-foreground">
                         Catat pemasukan atau pengeluaran organisasi
                     </p>
@@ -110,7 +112,7 @@ export default function Create({}: PageProps) {
                                     <span className="text-destructive">*</span>
                                 </Label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                    <span className="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-muted-foreground">
                                         Rp
                                     </span>
                                     <Input
@@ -145,7 +147,9 @@ export default function Create({}: PageProps) {
                                         )
                                     }
                                 />
-                                <InputError message={errors.tanggal_transaksi} />
+                                <InputError
+                                    message={errors.tanggal_transaksi}
+                                />
                             </div>
                         </div>
 

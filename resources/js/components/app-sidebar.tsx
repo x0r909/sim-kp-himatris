@@ -10,23 +10,32 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import { index as anggotaIndex } from '@/routes/anggota';
-import { index as pendaftaranAnggotaIndex } from '@/routes/pendaftaran-anggota';
-import { index as kegiatanIndex } from '@/routes/kegiatan';
 import { index as absensiIndex } from '@/routes/absensi';
 import { index as agendaIndex } from '@/routes/agenda';
-import { index as keuanganIndex } from '@/routes/keuangan';
+import { index as anggotaIndex } from '@/routes/anggota';
 import { index as auditKeuanganIndex } from '@/routes/audit-keuangan';
-import { index as suratMasukIndex } from '@/routes/surat-masuk';
+import { index as kegiatanIndex } from '@/routes/kegiatan';
+import { index as keuanganIndex } from '@/routes/keuangan';
+import { index as pendaftaranAnggotaIndex } from '@/routes/pendaftaran-anggota';
 import { index as suratKeluarIndex } from '@/routes/surat-keluar';
+import { index as suratMasukIndex } from '@/routes/surat-masuk';
 import { index as usersIndex } from '@/routes/users';
-import { type NavItem } from '@/types';
+import { SharedData, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BarChart3, Calendar, CalendarCheck, ClipboardCheck, FileText, LayoutGrid, Mail, MailOpen, Receipt, UserCircle, UserPlus, Users, Wallet } from 'lucide-react';
+import {
+    Calendar,
+    CalendarCheck,
+    FileText,
+    LayoutGrid,
+    UserCircle,
+    UserPlus,
+    Users,
+    Wallet,
+} from 'lucide-react';
 import AppLogo from './app-logo';
 
 export function AppSidebar() {
-    const { auth } = usePage().props as any;
+    const { auth } = usePage<SharedData>().props;
     const user = auth?.user;
 
     const mainNavItems: NavItem[] = [
@@ -38,7 +47,13 @@ export function AppSidebar() {
     ];
 
     // Add Anggota menu for admin, ketua, wakil ketua, and sekretaris umum
-    if (user && (user.role === 'admin' || user.role === 'ketua' || user.role === 'wakil_ketua' || user.role === 'sekretaris_umum')) {
+    if (
+        user &&
+        (user.role === 'admin' ||
+            user.role === 'ketua' ||
+            user.role === 'wakil_ketua' ||
+            user.role === 'sekretaris_umum')
+    ) {
         mainNavItems.push({
             title: 'Anggota',
             icon: UserCircle,
@@ -57,7 +72,15 @@ export function AppSidebar() {
     }
 
     // Add Persuratan menu for admin, BPH inti, and all sekretaris
-    if (user && (user.role === 'admin' || user.role === 'ketua' || user.role === 'wakil_ketua' || user.role === 'sekretaris_umum' || user.role === 'sekretaris_1' || user.role === 'sekretaris_2')) {
+    if (
+        user &&
+        (user.role === 'admin' ||
+            user.role === 'ketua' ||
+            user.role === 'wakil_ketua' ||
+            user.role === 'sekretaris_umum' ||
+            user.role === 'sekretaris_1' ||
+            user.role === 'sekretaris_2')
+    ) {
         mainNavItems.push({
             title: 'Persuratan',
             icon: FileText,
@@ -75,7 +98,15 @@ export function AppSidebar() {
     }
 
     // Add Absensi menu for admin, BPH inti, and all sekretaris
-    if (user && (user.role === 'admin' || user.role === 'ketua' || user.role === 'wakil_ketua' || user.role === 'sekretaris_umum' || user.role === 'sekretaris_1' || user.role === 'sekretaris_2')) {
+    if (
+        user &&
+        (user.role === 'admin' ||
+            user.role === 'ketua' ||
+            user.role === 'wakil_ketua' ||
+            user.role === 'sekretaris_umum' ||
+            user.role === 'sekretaris_1' ||
+            user.role === 'sekretaris_2')
+    ) {
         mainNavItems.push({
             title: 'Absensi',
             icon: CalendarCheck,
@@ -100,7 +131,15 @@ export function AppSidebar() {
     }
 
     // Add Keuangan menu for admin, BPH inti, and all bendahara
-    if (user && (user.role === 'admin' || user.role === 'ketua' || user.role === 'wakil_ketua' || user.role === 'sekretaris_umum' || user.role === 'bendahara_1' || user.role === 'bendahara_2')) {
+    if (
+        user &&
+        (user.role === 'admin' ||
+            user.role === 'ketua' ||
+            user.role === 'wakil_ketua' ||
+            user.role === 'sekretaris_umum' ||
+            user.role === 'bendahara_1' ||
+            user.role === 'bendahara_2')
+    ) {
         mainNavItems.push({
             title: 'Keuangan',
             icon: Wallet,
@@ -154,4 +193,3 @@ export function AppSidebar() {
         </Sidebar>
     );
 }
-

@@ -1,9 +1,26 @@
-import AppLayout from '@/layouts/app-layout';
+import {
+    create as agendaCreate,
+    show as agendaShow,
+} from '@/actions/App/Http/Controllers/AgendaController';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import AppLayout from '@/layouts/app-layout';
 import { Link } from '@inertiajs/react';
-import { Calendar, CalendarIcon, ChevronLeft, ChevronRight, Clock, MapPin, PlusIcon, User } from 'lucide-react';
-import { create as agendaCreate, show as agendaShow } from '@/actions/App/Http/Controllers/AgendaController';
+import {
+    CalendarIcon,
+    ChevronLeft,
+    ChevronRight,
+    Clock,
+    MapPin,
+    PlusIcon,
+    User,
+} from 'lucide-react';
 import { useState } from 'react';
 
 interface AgendaItem {
@@ -39,7 +56,20 @@ export default function Index({ agenda, canManage }: IndexProps) {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState<'month' | 'list'>('month');
 
-    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    const monthNames = [
+        'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember',
+    ];
     const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
     const getJenisBadgeClass = (jenis: string) => {
@@ -102,23 +132,23 @@ export default function Index({ agenda, canManage }: IndexProps) {
         const startDay = firstDay.getDay();
 
         const days: (Date | null)[] = [];
-        
+
         // Add empty cells for days before the first day of the month
         for (let i = 0; i < startDay; i++) {
             days.push(null);
         }
-        
+
         // Add all days of the month
         for (let i = 1; i <= daysInMonth; i++) {
             days.push(new Date(year, month, i));
         }
-        
+
         return days;
     };
 
     const getAgendaForDate = (date: Date | null) => {
         if (!date) return [];
-        
+
         return agenda.filter((item) => {
             const itemDate = new Date(item.tanggal_mulai);
             return (
@@ -130,11 +160,15 @@ export default function Index({ agenda, canManage }: IndexProps) {
     };
 
     const previousMonth = () => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+        setCurrentDate(
+            new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
+        );
     };
 
     const nextMonth = () => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+        setCurrentDate(
+            new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
+        );
     };
 
     const formatDateTime = (dateString: string) => {
@@ -157,10 +191,17 @@ export default function Index({ agenda, canManage }: IndexProps) {
     };
 
     const days = getDaysInMonth(currentDate);
-    const upcomingAgenda = agenda.filter((item) => {
-        const itemDate = new Date(item.tanggal_mulai);
-        return itemDate >= new Date() && item.status === 'published';
-    }).sort((a, b) => new Date(a.tanggal_mulai).getTime() - new Date(b.tanggal_mulai).getTime()).slice(0, 5);
+    const upcomingAgenda = agenda
+        .filter((item) => {
+            const itemDate = new Date(item.tanggal_mulai);
+            return itemDate >= new Date() && item.status === 'published';
+        })
+        .sort(
+            (a, b) =>
+                new Date(a.tanggal_mulai).getTime() -
+                new Date(b.tanggal_mulai).getTime(),
+        )
+        .slice(0, 5);
 
     return (
         <AppLayout>
@@ -171,7 +212,9 @@ export default function Index({ agenda, canManage }: IndexProps) {
                             <CalendarIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Agenda Himpunan</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Agenda Himpunan
+                            </h1>
                             <p className="text-sm text-muted-foreground">
                                 Jadwal kegiatan dan rapat himpunan
                             </p>
@@ -179,7 +222,9 @@ export default function Index({ agenda, canManage }: IndexProps) {
                     </div>
                     <div className="flex gap-2">
                         <Button
-                            variant={viewMode === 'month' ? 'default' : 'outline'}
+                            variant={
+                                viewMode === 'month' ? 'default' : 'outline'
+                            }
                             size="sm"
                             onClick={() => setViewMode('month')}
                             className="shadow-sm"
@@ -187,7 +232,9 @@ export default function Index({ agenda, canManage }: IndexProps) {
                             Kalender
                         </Button>
                         <Button
-                            variant={viewMode === 'list' ? 'default' : 'outline'}
+                            variant={
+                                viewMode === 'list' ? 'default' : 'outline'
+                            }
                             size="sm"
                             onClick={() => setViewMode('list')}
                             className="shadow-sm"
@@ -212,13 +259,22 @@ export default function Index({ agenda, canManage }: IndexProps) {
                             <CardHeader>
                                 <div className="flex items-center justify-between">
                                     <CardTitle>
-                                        {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                                        {monthNames[currentDate.getMonth()]}{' '}
+                                        {currentDate.getFullYear()}
                                     </CardTitle>
                                     <div className="flex gap-2">
-                                        <Button variant="outline" size="sm" onClick={previousMonth}>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={previousMonth}
+                                        >
                                             <ChevronLeft className="h-4 w-4" />
                                         </Button>
-                                        <Button variant="outline" size="sm" onClick={nextMonth}>
+                                        <Button
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={nextMonth}
+                                        >
                                             <ChevronRight className="h-4 w-4" />
                                         </Button>
                                     </div>
@@ -227,43 +283,69 @@ export default function Index({ agenda, canManage }: IndexProps) {
                             <CardContent>
                                 <div className="grid grid-cols-7 gap-2">
                                     {dayNames.map((day) => (
-                                        <div key={day} className="text-center text-sm font-medium text-muted-foreground p-2">
+                                        <div
+                                            key={day}
+                                            className="p-2 text-center text-sm font-medium text-muted-foreground"
+                                        >
                                             {day}
                                         </div>
                                     ))}
                                     {days.map((day, index) => {
                                         const dayAgenda = getAgendaForDate(day);
-                                        const isToday = day && day.toDateString() === new Date().toDateString();
-                                        
+                                        const isToday =
+                                            day &&
+                                            day.toDateString() ===
+                                                new Date().toDateString();
+
                                         return (
                                             <div
                                                 key={index}
                                                 className={`min-h-[100px] rounded-lg border p-2 ${
                                                     day
                                                         ? isToday
-                                                            ? 'bg-primary/5 border-primary'
+                                                            ? 'border-primary bg-primary/5'
                                                             : 'bg-card hover:bg-muted/50'
                                                         : 'bg-muted/20'
                                                 }`}
                                             >
                                                 {day && (
                                                     <>
-                                                        <div className={`text-sm font-medium mb-1 ${isToday ? 'text-primary' : ''}`}>
+                                                        <div
+                                                            className={`mb-1 text-sm font-medium ${isToday ? 'text-primary' : ''}`}
+                                                        >
                                                             {day.getDate()}
                                                         </div>
                                                         <div className="space-y-1">
-                                                            {dayAgenda.slice(0, 2).map((item) => (
-                                                                <Link key={item.id} href={agendaShow.url(item.id)}>
-                                                                    <div
-                                                                        className={`text-xs p-1 rounded cursor-pointer truncate ${getJenisBadgeClass(item.jenis)}`}
+                                                            {dayAgenda
+                                                                .slice(0, 2)
+                                                                .map((item) => (
+                                                                    <Link
+                                                                        key={
+                                                                            item.id
+                                                                        }
+                                                                        href={agendaShow.url(
+                                                                            item.id,
+                                                                        )}
                                                                     >
-                                                                        {formatTime(item.tanggal_mulai)} {item.judul}
-                                                                    </div>
-                                                                </Link>
-                                                            ))}
-                                                            {dayAgenda.length > 2 && (
+                                                                        <div
+                                                                            className={`cursor-pointer truncate rounded p-1 text-xs ${getJenisBadgeClass(item.jenis)}`}
+                                                                        >
+                                                                            {formatTime(
+                                                                                item.tanggal_mulai,
+                                                                            )}{' '}
+                                                                            {
+                                                                                item.judul
+                                                                            }
+                                                                        </div>
+                                                                    </Link>
+                                                                ))}
+                                                            {dayAgenda.length >
+                                                                2 && (
                                                                 <div className="text-xs text-muted-foreground">
-                                                                    +{dayAgenda.length - 2} lagi
+                                                                    +
+                                                                    {dayAgenda.length -
+                                                                        2}{' '}
+                                                                    lagi
                                                                 </div>
                                                             )}
                                                         </div>
@@ -280,24 +362,37 @@ export default function Index({ agenda, canManage }: IndexProps) {
                         <Card className="shadow-sm">
                             <CardHeader>
                                 <CardTitle>Agenda Mendatang</CardTitle>
-                                <CardDescription>Kegiatan yang akan berlangsung</CardDescription>
+                                <CardDescription>
+                                    Kegiatan yang akan berlangsung
+                                </CardDescription>
                             </CardHeader>
                             <CardContent>
                                 {upcomingAgenda.length > 0 ? (
                                     <div className="space-y-4">
                                         {upcomingAgenda.map((item) => (
-                                            <Link key={item.id} href={agendaShow.url(item.id)}>
-                                                <div className="rounded-lg border p-3 hover:bg-muted/50 cursor-pointer">
-                                                    <div className="flex items-start justify-between gap-2 mb-2">
-                                                        <h4 className="font-medium text-sm line-clamp-2">{item.judul}</h4>
-                                                        <span className={`text-xs px-2 py-0.5 rounded-full whitespace-nowrap ${getJenisBadgeClass(item.jenis)}`}>
-                                                            {getJenisText(item.jenis)}
+                                            <Link
+                                                key={item.id}
+                                                href={agendaShow.url(item.id)}
+                                            >
+                                                <div className="cursor-pointer rounded-lg border p-3 hover:bg-muted/50">
+                                                    <div className="mb-2 flex items-start justify-between gap-2">
+                                                        <h4 className="line-clamp-2 text-sm font-medium">
+                                                            {item.judul}
+                                                        </h4>
+                                                        <span
+                                                            className={`rounded-full px-2 py-0.5 text-xs whitespace-nowrap ${getJenisBadgeClass(item.jenis)}`}
+                                                        >
+                                                            {getJenisText(
+                                                                item.jenis,
+                                                            )}
                                                         </span>
                                                     </div>
                                                     <div className="space-y-1 text-xs text-muted-foreground">
                                                         <div className="flex items-center gap-1">
                                                             <Clock className="h-3 w-3" />
-                                                            {formatDateTime(item.tanggal_mulai)}
+                                                            {formatDateTime(
+                                                                item.tanggal_mulai,
+                                                            )}
                                                         </div>
                                                         {item.lokasi && (
                                                             <div className="flex items-center gap-1">
@@ -307,7 +402,11 @@ export default function Index({ agenda, canManage }: IndexProps) {
                                                         )}
                                                         <div className="flex items-center gap-1">
                                                             <User className="h-3 w-3" />
-                                                            {item.penanggung_jawab.name}
+                                                            {
+                                                                item
+                                                                    .penanggung_jawab
+                                                                    .name
+                                                            }
                                                         </div>
                                                     </div>
                                                 </div>
@@ -316,8 +415,10 @@ export default function Index({ agenda, canManage }: IndexProps) {
                                     </div>
                                 ) : (
                                     <div className="flex flex-col items-center justify-center py-8 text-center">
-                                        <CalendarIcon className="h-12 w-12 text-muted-foreground/40 mb-2" />
-                                        <p className="text-sm text-muted-foreground">Tidak ada agenda mendatang</p>
+                                        <CalendarIcon className="mb-2 h-12 w-12 text-muted-foreground/40" />
+                                        <p className="text-sm text-muted-foreground">
+                                            Tidak ada agenda mendatang
+                                        </p>
                                     </div>
                                 )}
                             </CardContent>
@@ -328,44 +429,68 @@ export default function Index({ agenda, canManage }: IndexProps) {
                     <Card className="shadow-sm">
                         <CardHeader>
                             <CardTitle>Semua Agenda</CardTitle>
-                            <CardDescription>Daftar lengkap agenda himpunan</CardDescription>
+                            <CardDescription>
+                                Daftar lengkap agenda himpunan
+                            </CardDescription>
                         </CardHeader>
                         <CardContent>
                             {agenda.length > 0 ? (
                                 <div className="space-y-3">
                                     {agenda.map((item) => (
-                                        <Link key={item.id} href={agendaShow.url(item.id)}>
-                                            <div className="rounded-lg border p-4 hover:bg-muted/50 cursor-pointer">
+                                        <Link
+                                            key={item.id}
+                                            href={agendaShow.url(item.id)}
+                                        >
+                                            <div className="cursor-pointer rounded-lg border p-4 hover:bg-muted/50">
                                                 <div className="flex items-start justify-between gap-3">
-                                                    <div className="flex-1 min-w-0">
-                                                        <div className="flex items-center gap-2 mb-2">
-                                                            <h3 className="font-semibold text-base">{item.judul}</h3>
-                                                            <span className={`text-xs px-2 py-0.5 rounded-full ${getJenisBadgeClass(item.jenis)}`}>
-                                                                {getJenisText(item.jenis)}
+                                                    <div className="min-w-0 flex-1">
+                                                        <div className="mb-2 flex items-center gap-2">
+                                                            <h3 className="text-base font-semibold">
+                                                                {item.judul}
+                                                            </h3>
+                                                            <span
+                                                                className={`rounded-full px-2 py-0.5 text-xs ${getJenisBadgeClass(item.jenis)}`}
+                                                            >
+                                                                {getJenisText(
+                                                                    item.jenis,
+                                                                )}
                                                             </span>
-                                                            <span className={`text-xs px-2 py-0.5 rounded-full ${getStatusBadgeClass(item.status)}`}>
-                                                                {getStatusText(item.status)}
+                                                            <span
+                                                                className={`rounded-full px-2 py-0.5 text-xs ${getStatusBadgeClass(item.status)}`}
+                                                            >
+                                                                {getStatusText(
+                                                                    item.status,
+                                                                )}
                                                             </span>
                                                         </div>
                                                         {item.deskripsi && (
-                                                            <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                                                            <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
                                                                 {item.deskripsi}
                                                             </p>
                                                         )}
                                                         <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
                                                             <div className="flex items-center gap-1">
                                                                 <Clock className="h-3 w-3" />
-                                                                {formatDateTime(item.tanggal_mulai)}
+                                                                {formatDateTime(
+                                                                    item.tanggal_mulai,
+                                                                )}
                                                             </div>
                                                             {item.lokasi && (
                                                                 <div className="flex items-center gap-1">
                                                                     <MapPin className="h-3 w-3" />
-                                                                    {item.lokasi}
+                                                                    {
+                                                                        item.lokasi
+                                                                    }
                                                                 </div>
                                                             )}
                                                             <div className="flex items-center gap-1">
                                                                 <User className="h-3 w-3" />
-                                                                PJ: {item.penanggung_jawab.name}
+                                                                PJ:{' '}
+                                                                {
+                                                                    item
+                                                                        .penanggung_jawab
+                                                                        .name
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -376,8 +501,10 @@ export default function Index({ agenda, canManage }: IndexProps) {
                                 </div>
                             ) : (
                                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                                    <CalendarIcon className="h-12 w-12 text-muted-foreground/40 mb-2" />
-                                    <p className="text-sm text-muted-foreground">Belum ada agenda</p>
+                                    <CalendarIcon className="mb-2 h-12 w-12 text-muted-foreground/40" />
+                                    <p className="text-sm text-muted-foreground">
+                                        Belum ada agenda
+                                    </p>
                                 </div>
                             )}
                         </CardContent>

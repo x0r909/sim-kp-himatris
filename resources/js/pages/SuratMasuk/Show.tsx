@@ -33,7 +33,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Show({ suratMasuk }: ShowProps) {
     const handleDelete = () => {
-        if (confirm(`Apakah Anda yakin ingin menghapus surat ${suratMasuk.nomor_surat}?`)) {
+        if (
+            confirm(
+                `Apakah Anda yakin ingin menghapus surat ${suratMasuk.nomor_surat}?`,
+            )
+        ) {
             router.delete(destroy.url(suratMasuk.id));
         }
     };

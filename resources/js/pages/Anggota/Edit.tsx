@@ -1,5 +1,5 @@
-import InputError from '@/components/input-error';
 import { ImageCropDialog } from '@/components/image-crop-dialog';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -94,7 +94,8 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
         setPreviewUrl(url);
     };
 
-    const currentFoto = previewUrl || (anggotum.foto ? `/storage/${anggotum.foto}` : '');
+    const currentFoto =
+        previewUrl || (anggotum.foto ? `/storage/${anggotum.foto}` : '');
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -116,7 +117,9 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Input
                                     id="nim"
                                     value={data.nim}
-                                    onChange={(e) => setData('nim', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('nim', e.target.value)
+                                    }
                                     type="text"
                                     required
                                     placeholder="Masukkan NIM"
@@ -129,7 +132,9 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Input
                                     id="jurusan"
                                     value={data.jurusan}
-                                    onChange={(e) => setData('jurusan', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('jurusan', e.target.value)
+                                    }
                                     type="text"
                                     required
                                     placeholder="Masukkan jurusan"
@@ -142,7 +147,9 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Input
                                     id="jabatan"
                                     value={data.jabatan}
-                                    onChange={(e) => setData('jabatan', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('jabatan', e.target.value)
+                                    }
                                     type="text"
                                     required
                                     placeholder="Masukkan jabatan"
@@ -155,7 +162,12 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Input
                                     id="tahun_masuk"
                                     value={data.tahun_masuk}
-                                    onChange={(e) => setData('tahun_masuk', parseInt(e.target.value))}
+                                    onChange={(e) =>
+                                        setData(
+                                            'tahun_masuk',
+                                            parseInt(e.target.value),
+                                        )
+                                    }
                                     type="number"
                                     required
                                     min="1900"
@@ -168,33 +180,48 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Label htmlFor="status">Status</Label>
                                 <Select
                                     value={data.status}
-                                    onValueChange={(value) => setData('status', value)}
+                                    onValueChange={(value) =>
+                                        setData('status', value)
+                                    }
                                     required
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih status" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="aktif">Aktif</SelectItem>
-                                        <SelectItem value="nonaktif">Nonaktif</SelectItem>
-                                        <SelectItem value="alumni">Alumni</SelectItem>
+                                        <SelectItem value="aktif">
+                                            Aktif
+                                        </SelectItem>
+                                        <SelectItem value="nonaktif">
+                                            Nonaktif
+                                        </SelectItem>
+                                        <SelectItem value="alumni">
+                                            Alumni
+                                        </SelectItem>
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.status} />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="user_id">Akun User (Opsional)</Label>
+                                <Label htmlFor="user_id">
+                                    Akun User (Opsional)
+                                </Label>
                                 <Select
                                     value={data.user_id}
-                                    onValueChange={(value) => setData('user_id', value)}
+                                    onValueChange={(value) =>
+                                        setData('user_id', value)
+                                    }
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Tidak ada akun (hanya untuk BPH)" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {availableUsers.map((user) => (
-                                            <SelectItem key={user.id} value={user.id.toString()}>
+                                            <SelectItem
+                                                key={user.id}
+                                                value={user.id.toString()}
+                                            >
                                                 {user.name} (@{user.username})
                                             </SelectItem>
                                         ))}
@@ -207,13 +234,17 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Label htmlFor="sp_level">Level SP</Label>
                                 <Select
                                     value={data.sp_level.toString()}
-                                    onValueChange={(value) => setData('sp_level', parseInt(value))}
+                                    onValueChange={(value) =>
+                                        setData('sp_level', parseInt(value))
+                                    }
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih level SP" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="0">Tidak ada</SelectItem>
+                                        <SelectItem value="0">
+                                            Tidak ada
+                                        </SelectItem>
                                         <SelectItem value="1">SP1</SelectItem>
                                         <SelectItem value="2">SP2</SelectItem>
                                         <SelectItem value="3">SP3</SelectItem>
@@ -227,7 +258,12 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                 <Input
                                     id="total_absen"
                                     value={data.total_absen}
-                                    onChange={(e) => setData('total_absen', parseInt(e.target.value))}
+                                    onChange={(e) =>
+                                        setData(
+                                            'total_absen',
+                                            parseInt(e.target.value),
+                                        )
+                                    }
                                     type="number"
                                     min="0"
                                 />
@@ -236,22 +272,33 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
 
                             {data.sp_level > 0 && (
                                 <div className="space-y-2 md:col-span-2">
-                                    <Label htmlFor="keterangan_sp">Keterangan SP</Label>
+                                    <Label htmlFor="keterangan_sp">
+                                        Keterangan SP
+                                    </Label>
                                     <Textarea
                                         id="keterangan_sp"
                                         value={data.keterangan_sp}
-                                        onChange={(e) => setData('keterangan_sp', e.target.value)}
+                                        onChange={(e) =>
+                                            setData(
+                                                'keterangan_sp',
+                                                e.target.value,
+                                            )
+                                        }
                                         placeholder="Masukkan keterangan surat peringatan"
                                         rows={3}
                                     />
-                                    <InputError message={errors.keterangan_sp} />
+                                    <InputError
+                                        message={errors.keterangan_sp}
+                                    />
                                 </div>
                             )}
 
                             <div className="space-y-2 md:col-span-2">
                                 {currentFoto && (
                                     <div className="mb-4">
-                                        <p className="mb-2 text-sm font-medium">Foto Saat Ini:</p>
+                                        <p className="mb-2 text-sm font-medium">
+                                            Foto Saat Ini:
+                                        </p>
                                         <img
                                             src={currentFoto}
                                             alt="Current foto"
@@ -259,7 +306,9 @@ export default function Edit({ anggotum, availableUsers }: EditProps) {
                                         />
                                     </div>
                                 )}
-                                <Label htmlFor="foto">Ubah Foto Anggota (Opsional)</Label>
+                                <Label htmlFor="foto">
+                                    Ubah Foto Anggota (Opsional)
+                                </Label>
                                 <Input
                                     id="foto"
                                     type="file"

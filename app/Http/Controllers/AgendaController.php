@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agenda;
-use App\Models\User;
 use App\Models\Kegiatan;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,6 +12,7 @@ use Inertia\Inertia;
 class AgendaController extends Controller
 {
     use AuthorizesRequests;
+
     public function index(Request $request)
     {
         $this->authorize('viewAny', Agenda::class);

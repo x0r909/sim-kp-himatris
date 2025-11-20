@@ -8,11 +8,11 @@ import {
 } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
-import { index as suratMasukIndex } from '@/routes/surat-masuk';
 import { index as suratKeluarIndex } from '@/routes/surat-keluar';
+import { index as suratMasukIndex } from '@/routes/surat-masuk';
 import { BreadcrumbItem, PageProps } from '@/types';
 import { Head, Link } from '@inertiajs/react';
-import { FileText, Mail, MailOpen } from 'lucide-react';
+import { Mail, MailOpen } from 'lucide-react';
 
 interface PersuratanIndexProps extends PageProps {
     summary: {
@@ -169,7 +169,7 @@ export default function Index({
                                         >
                                             <MailOpen className="mt-0.5 size-5 text-muted-foreground" />
                                             <div className="flex-1 space-y-1">
-                                                <p className="text-sm font-medium leading-none">
+                                                <p className="text-sm leading-none font-medium">
                                                     {surat.nomor_surat}
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">
@@ -222,7 +222,7 @@ export default function Index({
                                         >
                                             <Mail className="mt-0.5 size-5 text-muted-foreground" />
                                             <div className="flex-1 space-y-1">
-                                                <p className="text-sm font-medium leading-none">
+                                                <p className="text-sm leading-none font-medium">
                                                     {surat.nomor_surat}
                                                 </p>
                                                 <p className="text-sm text-muted-foreground">

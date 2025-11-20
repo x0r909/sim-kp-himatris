@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Keuangan;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -40,6 +39,7 @@ class AnalisisKeuanganController extends Controller
             ->map(function ($items) {
                 $masuk = $items->where('jenis', 'masuk')->first()->total ?? 0;
                 $keluar = $items->where('jenis', 'keluar')->first()->total ?? 0;
+
                 return [
                     'masuk' => $masuk,
                     'keluar' => $keluar,

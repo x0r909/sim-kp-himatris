@@ -12,7 +12,13 @@ import { dashboard } from '@/routes';
 import { create, destroy, edit, show } from '@/routes/surat-masuk';
 import { BreadcrumbItem, PageProps } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { DownloadIcon, EyeIcon, PencilIcon, PlusIcon, TrashIcon } from 'lucide-react';
+import {
+    DownloadIcon,
+    EyeIcon,
+    PencilIcon,
+    PlusIcon,
+    TrashIcon,
+} from 'lucide-react';
 
 interface SuratMasuk {
     id: number;
@@ -37,7 +43,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ suratMasuk }: SuratMasukIndexProps) {
     const handleDelete = (item: SuratMasuk) => {
-        if (confirm(`Apakah Anda yakin ingin menghapus surat ${item.nomor_surat}?`)) {
+        if (
+            confirm(
+                `Apakah Anda yakin ingin menghapus surat ${item.nomor_surat}?`,
+            )
+        ) {
             router.delete(destroy.url(item.id));
         }
     };

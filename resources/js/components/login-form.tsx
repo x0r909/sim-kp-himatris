@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Field,
@@ -7,12 +7,12 @@ import {
     FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Form } from '@inertiajs/react';
+import { Spinner } from '@/components/ui/spinner';
+import { cn } from '@/lib/utils';
+import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
-import { register } from '@/routes';
-import InputError from '@/components/input-error';
-import { Spinner } from '@/components/ui/spinner';
+import { Form } from '@inertiajs/react';
 
 interface LoginFormProps extends React.ComponentProps<'div'> {
     canResetPassword: boolean;
@@ -40,14 +40,12 @@ export function LoginForm({
                             <h1 className="text-2xl font-bold">
                                 Login to your account
                             </h1>
-                            <p className="text-balance text-sm text-muted-foreground">
+                            <p className="text-sm text-balance text-muted-foreground">
                                 Enter your username and password below to login
                             </p>
                         </div>
                         <Field>
-                            <FieldLabel htmlFor="username">
-                                Username
-                            </FieldLabel>
+                            <FieldLabel htmlFor="username">Username</FieldLabel>
                             <Input
                                 id="username"
                                 type="text"

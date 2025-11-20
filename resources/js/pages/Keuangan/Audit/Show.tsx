@@ -1,10 +1,23 @@
-import AppLayout from '@/layouts/app-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link } from '@inertiajs/react';
-import { ArrowDownIcon, ArrowUpIcon, CalendarIcon, FolderIcon, FileTextIcon, UserIcon, ClipboardCheckIcon } from 'lucide-react';
-import { index as keuanganIndex } from '@/actions/App/Http/Controllers/KeuanganController';
 import { index as auditIndex } from '@/actions/App/Http/Controllers/AuditKeuanganController';
+import { index as keuanganIndex } from '@/actions/App/Http/Controllers/KeuanganController';
+import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import AppLayout from '@/layouts/app-layout';
+import { Link } from '@inertiajs/react';
+import {
+    ArrowDownIcon,
+    ArrowUpIcon,
+    CalendarIcon,
+    ClipboardCheckIcon,
+    FileTextIcon,
+    UserIcon,
+} from 'lucide-react';
 
 interface AuditKeuanganShowProps {
     audit: {
@@ -70,28 +83,40 @@ export default function Show({ audit }: AuditKeuanganShowProps) {
                             <ClipboardCheckIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Detail Audit Keuangan</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Detail Audit Keuangan
+                            </h1>
                             <p className="text-sm text-muted-foreground">
                                 Informasi lengkap audit transaksi
                             </p>
                         </div>
                     </div>
                     <Link href={auditIndex.url()}>
-                        <Button variant="outline" className="shadow-sm">Kembali</Button>
+                        <Button variant="outline" className="shadow-sm">
+                            Kembali
+                        </Button>
                     </Link>
                 </div>
 
                 {/* Audit Status Card */}
-                <Card className={`shadow-sm ${audit.status_audit === 'approved' ? 'border-green-300 bg-green-50/50 dark:bg-green-950/20' : audit.status_audit === 'rejected' ? 'border-red-300 bg-red-50/50 dark:bg-red-950/20' : 'border-yellow-300 bg-yellow-50/50 dark:bg-yellow-950/20'}`}>
+                <Card
+                    className={`shadow-sm ${audit.status_audit === 'approved' ? 'border-green-300 bg-green-50/50 dark:bg-green-950/20' : audit.status_audit === 'rejected' ? 'border-red-300 bg-red-50/50 dark:bg-red-950/20' : 'border-yellow-300 bg-yellow-50/50 dark:bg-yellow-950/20'}`}
+                >
                     <CardContent className="pt-6">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-muted-foreground">Status Audit</p>
-                                <span className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium mt-2 ${getStatusBadgeClass(audit.status_audit)}`}>
+                                <p className="text-sm text-muted-foreground">
+                                    Status Audit
+                                </p>
+                                <span
+                                    className={`mt-2 inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${getStatusBadgeClass(audit.status_audit)}`}
+                                >
                                     {getStatusText(audit.status_audit)}
                                 </span>
                             </div>
-                            <ClipboardCheckIcon className={`h-12 w-12 ${audit.status_audit === 'approved' ? 'text-green-500' : audit.status_audit === 'rejected' ? 'text-red-500' : 'text-yellow-500'}`} />
+                            <ClipboardCheckIcon
+                                className={`h-12 w-12 ${audit.status_audit === 'approved' ? 'text-green-500' : audit.status_audit === 'rejected' ? 'text-red-500' : 'text-yellow-500'}`}
+                            />
                         </div>
                     </CardContent>
                 </Card>
@@ -100,16 +125,26 @@ export default function Show({ audit }: AuditKeuanganShowProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Informasi Transaksi</CardTitle>
-                        <CardDescription>Detail transaksi yang diaudit</CardDescription>
+                        <CardDescription>
+                            Detail transaksi yang diaudit
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-4 md:grid-cols-3">
-                            <div className={`rounded-lg border p-4 ${audit.keuangan.jenis === 'masuk' ? 'bg-green-50 border-green-200 dark:bg-green-950/20' : 'bg-red-50 border-red-200 dark:bg-red-950/20'}`}>
+                            <div
+                                className={`rounded-lg border p-4 ${audit.keuangan.jenis === 'masuk' ? 'border-green-200 bg-green-50 dark:bg-green-950/20' : 'border-red-200 bg-red-50 dark:bg-red-950/20'}`}
+                            >
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <p className="text-sm text-muted-foreground">Jenis Transaksi</p>
-                                        <p className={`text-lg font-semibold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-700 dark:text-red-400'}`}>
-                                            {audit.keuangan.jenis === 'masuk' ? 'Kas Masuk' : 'Kas Keluar'}
+                                        <p className="text-sm text-muted-foreground">
+                                            Jenis Transaksi
+                                        </p>
+                                        <p
+                                            className={`text-lg font-semibold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-700 dark:text-red-400'}`}
+                                        >
+                                            {audit.keuangan.jenis === 'masuk'
+                                                ? 'Kas Masuk'
+                                                : 'Kas Keluar'}
                                         </p>
                                     </div>
                                     {audit.keuangan.jenis === 'masuk' ? (
@@ -120,47 +155,70 @@ export default function Show({ audit }: AuditKeuanganShowProps) {
                                 </div>
                             </div>
 
-                            <div className="rounded-lg border p-4 bg-blue-50 border-blue-200 dark:bg-blue-950/20">
-                                <p className="text-sm text-muted-foreground">Nominal</p>
-                                <p className={`text-2xl font-bold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-700 dark:text-red-400'}`}>
+                            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 dark:bg-blue-950/20">
+                                <p className="text-sm text-muted-foreground">
+                                    Nominal
+                                </p>
+                                <p
+                                    className={`text-2xl font-bold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-700 dark:text-emerald-400' : 'text-red-700 dark:text-red-400'}`}
+                                >
                                     {formatCurrency(audit.keuangan.nominal)}
                                 </p>
                             </div>
 
                             <div className="rounded-lg border p-4">
-                                <p className="text-sm text-muted-foreground">Kategori</p>
-                                <p className="text-lg font-semibold">{audit.keuangan.kategori}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Kategori
+                                </p>
+                                <p className="text-lg font-semibold">
+                                    {audit.keuangan.kategori}
+                                </p>
                             </div>
                         </div>
 
                         <div className="space-y-3 border-t pt-4">
                             <div className="flex items-start gap-3">
-                                <CalendarIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                <CalendarIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Tanggal Transaksi</p>
-                                    <p className="font-medium">{audit.keuangan.tanggal_transaksi}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Tanggal Transaksi
+                                    </p>
+                                    <p className="font-medium">
+                                        {audit.keuangan.tanggal_transaksi}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start gap-3">
-                                <FileTextIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                <FileTextIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                 <div className="flex-1">
-                                    <p className="text-sm text-muted-foreground">Deskripsi</p>
-                                    <p className="font-medium">{audit.keuangan.deskripsi || '-'}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Deskripsi
+                                    </p>
+                                    <p className="font-medium">
+                                        {audit.keuangan.deskripsi || '-'}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start gap-3">
-                                <UserIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                <UserIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Dibuat Oleh</p>
-                                    <p className="font-medium">{audit.keuangan.created_by_name}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Dibuat Oleh
+                                    </p>
+                                    <p className="font-medium">
+                                        {audit.keuangan.created_by_name}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start gap-3 pt-2">
                                 <Link href={keuanganIndex.url()}>
-                                    <Button variant="link" className="p-0 h-auto text-primary hover:text-primary/80">
+                                    <Button
+                                        variant="link"
+                                        className="h-auto p-0 text-primary hover:text-primary/80"
+                                    >
                                         Lihat Detail Transaksi →
                                     </Button>
                                 </Link>
@@ -173,33 +231,47 @@ export default function Show({ audit }: AuditKeuanganShowProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Informasi Audit</CardTitle>
-                        <CardDescription>Detail auditor dan hasil audit</CardDescription>
+                        <CardDescription>
+                            Detail auditor dan hasil audit
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="grid gap-4 md:grid-cols-2">
                             <div className="flex items-start gap-3">
-                                <UserIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                <UserIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Auditor</p>
-                                    <p className="font-medium">{audit.auditor_name}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Auditor
+                                    </p>
+                                    <p className="font-medium">
+                                        {audit.auditor_name}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="flex items-start gap-3">
-                                <CalendarIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                                <CalendarIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Tanggal Audit</p>
-                                    <p className="font-medium">{audit.tanggal_audit}</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Tanggal Audit
+                                    </p>
+                                    <p className="font-medium">
+                                        {audit.tanggal_audit}
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex items-start gap-3 border-t pt-4">
-                            <FileTextIcon className="h-5 w-5 text-muted-foreground mt-0.5" />
+                            <FileTextIcon className="mt-0.5 h-5 w-5 text-muted-foreground" />
                             <div className="flex-1">
-                                <p className="text-sm text-muted-foreground mb-2">Catatan Audit</p>
-                                <div className="rounded-lg bg-muted/50 p-4 border">
-                                    <p className="whitespace-pre-wrap text-sm">{audit.catatan}</p>
+                                <p className="mb-2 text-sm text-muted-foreground">
+                                    Catatan Audit
+                                </p>
+                                <div className="rounded-lg border bg-muted/50 p-4">
+                                    <p className="text-sm whitespace-pre-wrap">
+                                        {audit.catatan}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -210,17 +282,31 @@ export default function Show({ audit }: AuditKeuanganShowProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Informasi Tambahan</CardTitle>
-                        <CardDescription>Waktu pembuatan dan perubahan data</CardDescription>
+                        <CardDescription>
+                            Waktu pembuatan dan perubahan data
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid gap-4 md:grid-cols-2 text-sm">
+                        <div className="grid gap-4 text-sm md:grid-cols-2">
                             <div>
-                                <p className="text-muted-foreground">Dibuat Pada</p>
-                                <p className="font-medium">{new Date(audit.created_at).toLocaleString('id-ID')}</p>
+                                <p className="text-muted-foreground">
+                                    Dibuat Pada
+                                </p>
+                                <p className="font-medium">
+                                    {new Date(audit.created_at).toLocaleString(
+                                        'id-ID',
+                                    )}
+                                </p>
                             </div>
                             <div>
-                                <p className="text-muted-foreground">Terakhir Diubah</p>
-                                <p className="font-medium">{new Date(audit.updated_at).toLocaleString('id-ID')}</p>
+                                <p className="text-muted-foreground">
+                                    Terakhir Diubah
+                                </p>
+                                <p className="font-medium">
+                                    {new Date(audit.updated_at).toLocaleString(
+                                        'id-ID',
+                                    )}
+                                </p>
                             </div>
                         </div>
                     </CardContent>

@@ -20,15 +20,9 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { UserMenuContent } from '@/components/user-menu-content';
 import { useInitials } from '@/hooks/use-initials';
-import { cn, isSameUrl, resolveUrl } from '@/lib/utils';
+import { cn, isSameUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
@@ -118,35 +112,40 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     <div className="ml-6 hidden h-full items-center space-x-6 lg:flex">
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
-                                {mainNavItems.map((item, index) => (
-                                    <NavigationMenuItem
-                                        key={index}
-                                        className="relative flex h-full items-center"
-                                    >
-                                        <Link
-                                            href={item.href}
-                                            className={cn(
-                                                navigationMenuTriggerStyle(),
-                                                isSameUrl(
-                                                    page.url,
-                                                    item.href,
-                                                ) && activeItemStyles,
-                                                'h-9 cursor-pointer px-3',
-                                            )}
+                                {mainNavItems
+                                    .filter((item) => item.href)
+                                    .map((item, index) => (
+                                        <NavigationMenuItem
+                                            key={index}
+                                            className="relative flex h-full items-center"
                                         >
-                                            {item.icon && (
-                                                <Icon
-                                                    iconNode={item.icon}
-                                                    className="mr-2 h-4 w-4"
-                                                />
+                                            <Link
+                                                href={item.href!}
+                                                className={cn(
+                                                    navigationMenuTriggerStyle(),
+                                                    isSameUrl(
+                                                        page.url,
+                                                        item.href!,
+                                                    ) && activeItemStyles,
+                                                    'h-9 cursor-pointer px-3',
+                                                )}
+                                            >
+                                                {item.icon && (
+                                                    <Icon
+                                                        iconNode={item.icon}
+                                                        className="mr-2 h-4 w-4"
+                                                    />
+                                                )}
+                                                {item.title}
+                                            </Link>
+                                            {isSameUrl(
+                                                page.url,
+                                                item.href!,
+                                            ) && (
+                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
                                             )}
-                                            {item.title}
-                                        </Link>
-                                        {isSameUrl(page.url, item.href) && (
-                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                        )}
-                                    </NavigationMenuItem>
-                                ))}
+                                        </NavigationMenuItem>
+                                    ))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>

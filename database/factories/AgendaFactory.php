@@ -17,7 +17,7 @@ class AgendaFactory extends Factory
     public function definition(): array
     {
         $tanggalMulai = $this->faker->dateTimeBetween('now', '+3 months');
-        $tanggalSelesai = (clone $tanggalMulai)->modify('+' . $this->faker->numberBetween(1, 4) . ' hours');
+        $tanggalSelesai = (clone $tanggalMulai)->modify('+'.$this->faker->numberBetween(1, 4).' hours');
 
         return [
             'judul' => $this->faker->randomElement([

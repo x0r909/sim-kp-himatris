@@ -40,7 +40,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ anggota }: AnggotaIndexProps) {
     const handleDelete = (item: Anggota) => {
-        if (confirm(`Apakah Anda yakin ingin menghapus data ${item.nama_lengkap}?`)) {
+        if (
+            confirm(
+                `Apakah Anda yakin ingin menghapus data ${item.nama_lengkap}?`,
+            )
+        ) {
             router.delete(destroy.url(item.id));
         }
     };
@@ -48,7 +52,8 @@ export default function Index({ anggota }: AnggotaIndexProps) {
     const getStatusBadgeClass = (status: string) => {
         const classes = {
             aktif: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
-            nonaktif: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
+            nonaktif:
+                'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
             alumni: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
         };
         return classes[status as keyof typeof classes] || '';
@@ -132,10 +137,14 @@ export default function Index({ anggota }: AnggotaIndexProps) {
                                         <TableCell className="font-medium">
                                             {item.nim}
                                         </TableCell>
-                                        <TableCell>{item.nama_lengkap}</TableCell>
+                                        <TableCell>
+                                            {item.nama_lengkap}
+                                        </TableCell>
                                         <TableCell>{item.jurusan}</TableCell>
                                         <TableCell>{item.jabatan}</TableCell>
-                                        <TableCell>{item.tahun_masuk}</TableCell>
+                                        <TableCell>
+                                            {item.tahun_masuk}
+                                        </TableCell>
                                         <TableCell>
                                             <span
                                                 className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getStatusBadgeClass(item.status)}`}
@@ -151,7 +160,9 @@ export default function Index({ anggota }: AnggotaIndexProps) {
                                                     {item.status_peringatan}
                                                 </span>
                                             ) : (
-                                                <span className="text-muted-foreground">-</span>
+                                                <span className="text-muted-foreground">
+                                                    -
+                                                </span>
                                             )}
                                         </TableCell>
                                         <TableCell className="text-right">
@@ -161,7 +172,9 @@ export default function Index({ anggota }: AnggotaIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={show.url(item.id)}>
+                                                    <Link
+                                                        href={show.url(item.id)}
+                                                    >
                                                         <EyeIcon className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -170,7 +183,9 @@ export default function Index({ anggota }: AnggotaIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={edit.url(item.id)}>
+                                                    <Link
+                                                        href={edit.url(item.id)}
+                                                    >
                                                         <PencilIcon className="size-4" />
                                                     </Link>
                                                 </Button>

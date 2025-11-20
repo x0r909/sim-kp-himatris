@@ -15,12 +15,12 @@ class UpdateAnggotaRequest extends FormRequest
     public function rules(): array
     {
         $anggotum = $this->route('anggotum');
-        
+
         return [
             'nim' => ['required', 'string', 'max:255', Rule::unique('anggota')->ignore($anggotum->id)],
             'jurusan' => ['required', 'string', 'max:255'],
             'jabatan' => ['required', 'string', 'max:255'],
-            'tahun_masuk' => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+            'tahun_masuk' => ['required', 'integer', 'min:1900', 'max:'.date('Y')],
             'status' => ['required', Rule::in(['aktif', 'nonaktif', 'alumni'])],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
             'sp_level' => ['nullable', 'integer', 'between:0,3'],

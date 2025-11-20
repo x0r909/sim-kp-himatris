@@ -86,12 +86,6 @@ export default function Show({ keuangan, canManage }: ShowProps) {
         });
     };
 
-    const getJenisBadgeClass = (jenis: string) => {
-        return jenis === 'masuk'
-            ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
-            : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Detail Transaksi" />
@@ -145,7 +139,9 @@ export default function Show({ keuangan, canManage }: ShowProps) {
                     </div>
 
                     <div className="rounded-lg border bg-card p-6">
-                        <p className="text-sm text-muted-foreground">Kategori</p>
+                        <p className="text-sm text-muted-foreground">
+                            Kategori
+                        </p>
                         <p className="mt-2 text-lg font-semibold">
                             {keuangan.kategori}
                         </p>
@@ -237,12 +233,15 @@ export default function Show({ keuangan, canManage }: ShowProps) {
                                                 {audit.auditor.name}
                                             </p>
                                             <p className="text-sm text-muted-foreground">
-                                                {formatDate(audit.tanggal_audit)}
+                                                {formatDate(
+                                                    audit.tanggal_audit,
+                                                )}
                                             </p>
                                         </div>
                                         <span
                                             className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                                                audit.status_audit === 'approved'
+                                                audit.status_audit ===
+                                                'approved'
                                                     ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200'
                                                     : audit.status_audit ===
                                                         'rejected'

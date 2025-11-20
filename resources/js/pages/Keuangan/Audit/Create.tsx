@@ -1,15 +1,30 @@
-import AppLayout from '@/layouts/app-layout';
+import {
+    index as auditIndex,
+    store as auditStore,
+} from '@/actions/App/Http/Controllers/AuditKeuanganController';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import AppLayout from '@/layouts/app-layout';
 import { Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
-import InputError from '@/components/input-error';
 import { ClipboardCheckIcon } from 'lucide-react';
-import { index as auditIndex, store as auditStore } from '@/actions/App/Http/Controllers/AuditKeuanganController';
+import { FormEventHandler } from 'react';
 
 interface KeuanganOption {
     id: number;
@@ -41,7 +56,9 @@ export default function Create({ keuanganList }: CreateProps) {
                         <ClipboardCheckIcon className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">Tambah Audit Keuangan</h1>
+                        <h1 className="text-2xl font-bold tracking-tight">
+                            Tambah Audit Keuangan
+                        </h1>
                         <p className="text-sm text-muted-foreground">
                             Buat audit baru untuk transaksi keuangan
                         </p>
@@ -51,7 +68,9 @@ export default function Create({ keuanganList }: CreateProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Form Audit</CardTitle>
-                        <CardDescription>Lengkapi informasi audit transaksi</CardDescription>
+                        <CardDescription>
+                            Lengkapi informasi audit transaksi
+                        </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={submit} className="space-y-4">
@@ -59,14 +78,19 @@ export default function Create({ keuanganList }: CreateProps) {
                                 <Label htmlFor="keuangan_id">Transaksi</Label>
                                 <Select
                                     value={data.keuangan_id}
-                                    onValueChange={(value) => setData('keuangan_id', value)}
+                                    onValueChange={(value) =>
+                                        setData('keuangan_id', value)
+                                    }
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih transaksi" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {keuanganList.map((keuangan) => (
-                                            <SelectItem key={keuangan.id} value={keuangan.id.toString()}>
+                                            <SelectItem
+                                                key={keuangan.id}
+                                                value={keuangan.id.toString()}
+                                            >
                                                 {keuangan.label}
                                             </SelectItem>
                                         ))}
@@ -76,30 +100,44 @@ export default function Create({ keuanganList }: CreateProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="status_audit">Status Audit</Label>
+                                <Label htmlFor="status_audit">
+                                    Status Audit
+                                </Label>
                                 <Select
                                     value={data.status_audit}
-                                    onValueChange={(value) => setData('status_audit', value)}
+                                    onValueChange={(value) =>
+                                        setData('status_audit', value)
+                                    }
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Pilih status audit" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="approved">Disetujui</SelectItem>
-                                        <SelectItem value="rejected">Ditolak</SelectItem>
-                                        <SelectItem value="pending">Pending</SelectItem>
+                                        <SelectItem value="approved">
+                                            Disetujui
+                                        </SelectItem>
+                                        <SelectItem value="rejected">
+                                            Ditolak
+                                        </SelectItem>
+                                        <SelectItem value="pending">
+                                            Pending
+                                        </SelectItem>
                                     </SelectContent>
                                 </Select>
                                 <InputError message={errors.status_audit} />
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="tanggal_audit">Tanggal Audit</Label>
+                                <Label htmlFor="tanggal_audit">
+                                    Tanggal Audit
+                                </Label>
                                 <Input
                                     id="tanggal_audit"
                                     type="date"
                                     value={data.tanggal_audit}
-                                    onChange={(e) => setData('tanggal_audit', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('tanggal_audit', e.target.value)
+                                    }
                                     required
                                 />
                                 <InputError message={errors.tanggal_audit} />
@@ -110,7 +148,9 @@ export default function Create({ keuanganList }: CreateProps) {
                                 <Textarea
                                     id="catatan"
                                     value={data.catatan}
-                                    onChange={(e) => setData('catatan', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('catatan', e.target.value)
+                                    }
                                     placeholder="Tulis catatan hasil audit..."
                                     rows={5}
                                     required
@@ -118,13 +158,21 @@ export default function Create({ keuanganList }: CreateProps) {
                                 <InputError message={errors.catatan} />
                             </div>
 
-                            <div className="flex gap-2 justify-end">
+                            <div className="flex justify-end gap-2">
                                 <Link href={auditIndex.url()}>
-                                    <Button type="button" variant="outline" className="shadow-sm">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        className="shadow-sm"
+                                    >
                                         Batal
                                     </Button>
                                 </Link>
-                                <Button type="submit" disabled={processing} className="shadow-sm">
+                                <Button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="shadow-sm"
+                                >
                                     {processing ? 'Menyimpan...' : 'Simpan'}
                                 </Button>
                             </div>

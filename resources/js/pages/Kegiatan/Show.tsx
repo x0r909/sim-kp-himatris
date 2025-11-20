@@ -34,7 +34,6 @@ interface Kegiatan {
     tanggal_mulai: string;
     tanggal_selesai: string;
     deskripsi: string | null;
-    penanggung_jawab: number;
     penanggung_jawab_name?: string;
     penanggung_jawab?: {
         id: number;

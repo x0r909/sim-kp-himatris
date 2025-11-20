@@ -6,7 +6,7 @@ import { Spinner } from '@/components/ui/spinner';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { index, store } from '@/routes/surat-keluar';
-import { BreadcrumbItem, PageProps } from '@/types';
+import { BreadcrumbItem } from '@/types';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -51,7 +51,8 @@ export default function Create() {
                     <div className="grid gap-6 md:grid-cols-2">
                         <div className="space-y-2">
                             <Label htmlFor="nomor_surat">
-                                Nomor Surat <span className="text-red-500">*</span>
+                                Nomor Surat{' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="nomor_surat"
@@ -83,7 +84,8 @@ export default function Create() {
 
                         <div className="space-y-2">
                             <Label htmlFor="tanggal_keluar">
-                                Tanggal Keluar <span className="text-red-500">*</span>
+                                Tanggal Keluar{' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="tanggal_keluar"
@@ -98,7 +100,8 @@ export default function Create() {
 
                         <div className="space-y-2">
                             <Label htmlFor="tanda_tangan">
-                                Tanda Tangan <span className="text-red-500">*</span>
+                                Tanda Tangan{' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="tanda_tangan"
@@ -114,14 +117,18 @@ export default function Create() {
 
                         <div className="space-y-2">
                             <Label htmlFor="file_surat">
-                                File Surat (PDF) <span className="text-red-500">*</span>
+                                File Surat (PDF){' '}
+                                <span className="text-red-500">*</span>
                             </Label>
                             <Input
                                 id="file_surat"
                                 type="file"
                                 accept=".pdf"
                                 onChange={(e) =>
-                                    setData('file_surat', e.target.files?.[0] || null)
+                                    setData(
+                                        'file_surat',
+                                        e.target.files?.[0] || null,
+                                    )
                                 }
                             />
                             <InputError message={errors.file_surat} />
@@ -139,9 +146,7 @@ export default function Create() {
                             id="perihal"
                             type="text"
                             value={data.perihal}
-                            onChange={(e) =>
-                                setData('perihal', e.target.value)
-                            }
+                            onChange={(e) => setData('perihal', e.target.value)}
                             placeholder="Perihal surat"
                         />
                         <InputError message={errors.perihal} />
@@ -152,9 +157,7 @@ export default function Create() {
                             <Link href={index.url()}>Batal</Link>
                         </Button>
                         <Button type="submit" disabled={processing}>
-                            {processing && (
-                                <Spinner className="mr-2 size-4" />
-                            )}
+                            {processing && <Spinner className="mr-2 size-4" />}
                             Simpan
                         </Button>
                     </div>

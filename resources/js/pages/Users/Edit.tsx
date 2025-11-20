@@ -1,5 +1,5 @@
-import InputError from '@/components/input-error';
 import { ImageCropDialog } from '@/components/image-crop-dialog';
+import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -102,13 +102,13 @@ export default function Edit({ user }: EditProps) {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid gap-6 md:grid-cols-2">
                             <div className="space-y-2">
-                                <Label htmlFor="name">
-                                    Nama Lengkap
-                                </Label>
+                                <Label htmlFor="name">Nama Lengkap</Label>
                                 <Input
                                     id="name"
                                     value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('name', e.target.value)
+                                    }
                                     type="text"
                                     required
                                     placeholder="Masukkan nama lengkap"
@@ -117,13 +117,13 @@ export default function Edit({ user }: EditProps) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="username">
-                                    Username
-                                </Label>
+                                <Label htmlFor="username">Username</Label>
                                 <Input
                                     id="username"
                                     value={data.username}
-                                    onChange={(e) => setData('username', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('username', e.target.value)
+                                    }
                                     type="text"
                                     required
                                     placeholder="Masukkan username"
@@ -136,7 +136,9 @@ export default function Edit({ user }: EditProps) {
                                 <Input
                                     id="email"
                                     value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
                                     type="email"
                                     required
                                     placeholder="email@example.com"
@@ -146,13 +148,14 @@ export default function Edit({ user }: EditProps) {
 
                             <div className="space-y-2">
                                 <Label htmlFor="password">
-                                    Password Baru (Kosongkan jika tidak
-                                    diubah)
+                                    Password Baru (Kosongkan jika tidak diubah)
                                 </Label>
                                 <Input
                                     id="password"
                                     value={data.password}
-                                    onChange={(e) => setData('password', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('password', e.target.value)
+                                    }
                                     type="password"
                                     placeholder="Minimal 8 karakter"
                                 />
@@ -166,7 +169,12 @@ export default function Edit({ user }: EditProps) {
                                 <Input
                                     id="password_confirmation"
                                     value={data.password_confirmation}
-                                    onChange={(e) => setData('password_confirmation', e.target.value)}
+                                    onChange={(e) =>
+                                        setData(
+                                            'password_confirmation',
+                                            e.target.value,
+                                        )
+                                    }
                                     type="password"
                                     placeholder="Ulangi password"
                                 />
@@ -176,23 +184,25 @@ export default function Edit({ user }: EditProps) {
                                 <Label htmlFor="role">Role</Label>
                                 <Select
                                     value={data.role}
-                                    onValueChange={(value) => setData('role', value)}
+                                    onValueChange={(value) =>
+                                        setData('role', value)
+                                    }
                                     required
                                 >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Pilih role" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="admin">
-                                                    Admin
-                                                </SelectItem>
-                                                <SelectItem value="bendahara">
-                                                    Bendahara
-                                                </SelectItem>
-                                                <SelectItem value="anggota">
-                                                    Anggota
-                                                </SelectItem>
-                                            </SelectContent>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Pilih role" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="admin">
+                                            Admin
+                                        </SelectItem>
+                                        <SelectItem value="bendahara">
+                                            Bendahara
+                                        </SelectItem>
+                                        <SelectItem value="anggota">
+                                            Anggota
+                                        </SelectItem>
+                                    </SelectContent>
                                 </Select>
                                 <InputError message={errors.role} />
                             </div>
@@ -201,20 +211,22 @@ export default function Edit({ user }: EditProps) {
                                 <Label htmlFor="status">Status</Label>
                                 <Select
                                     value={data.status}
-                                    onValueChange={(value) => setData('status', value)}
+                                    onValueChange={(value) =>
+                                        setData('status', value)
+                                    }
                                     required
                                 >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Pilih status" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="aktif">
-                                                    Aktif
-                                                </SelectItem>
-                                                <SelectItem value="nonaktif">
-                                                    Nonaktif
-                                                </SelectItem>
-                                            </SelectContent>
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Pilih status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="aktif">
+                                            Aktif
+                                        </SelectItem>
+                                        <SelectItem value="nonaktif">
+                                            Nonaktif
+                                        </SelectItem>
+                                    </SelectContent>
                                 </Select>
                                 <InputError message={errors.status} />
                             </div>
@@ -223,10 +235,15 @@ export default function Edit({ user }: EditProps) {
                                 {(previewUrl || user.foto) && (
                                     <div className="mb-4">
                                         <p className="mb-2 text-sm font-medium">
-                                            {previewUrl ? 'Preview Baru:' : 'Foto Saat Ini:'}
+                                            {previewUrl
+                                                ? 'Preview Baru:'
+                                                : 'Foto Saat Ini:'}
                                         </p>
                                         <img
-                                            src={previewUrl || `/storage/${user.foto}`}
+                                            src={
+                                                previewUrl ||
+                                                `/storage/${user.foto}`
+                                            }
                                             alt={user.name}
                                             className="size-20 rounded-full object-cover"
                                         />
@@ -249,17 +266,10 @@ export default function Edit({ user }: EditProps) {
                         </div>
 
                         <div className="flex justify-end gap-4">
-                            <Button
-                                type="button"
-                                variant="outline"
-                                asChild
-                            >
+                            <Button type="button" variant="outline" asChild>
                                 <Link href={index.url()}>Batal</Link>
                             </Button>
-                            <Button
-                                type="submit"
-                                disabled={processing}
-                            >
+                            <Button type="submit" disabled={processing}>
                                 {processing && <Spinner />}
                                 Update
                             </Button>

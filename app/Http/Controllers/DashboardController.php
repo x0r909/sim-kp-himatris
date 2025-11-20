@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absensi;
 use App\Models\Agenda;
 use App\Models\Anggota;
 use App\Models\AuditKeuangan;
@@ -11,8 +10,6 @@ use App\Models\Keuangan;
 use App\Models\PendaftaranAnggota;
 use App\Models\SuratKeluar;
 use App\Models\SuratMasuk;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -26,10 +23,10 @@ class DashboardController extends Controller
             // Anggota
             'total_anggota' => Anggota::count(),
             'anggota_aktif' => Anggota::where('status', 'aktif')->count(),
-            
+
             // Pendaftaran (hanya untuk admin, ketua, wakil, sekum)
             'pendaftaran_pending' => 0,
-            
+
             // Persuratan
             'surat_masuk_bulan_ini' => SuratMasuk::whereMonth('tanggal_masuk', now()->month)
                 ->whereYear('tanggal_masuk', now()->year)
@@ -37,18 +34,18 @@ class DashboardController extends Controller
             'surat_keluar_bulan_ini' => SuratKeluar::whereMonth('tanggal_keluar', now()->month)
                 ->whereYear('tanggal_keluar', now()->year)
                 ->count(),
-            
+
             // Kegiatan & Agenda
             'kegiatan_aktif' => Kegiatan::where('tanggal_selesai', '>=', now()->toDateString())->count(),
             'agenda_bulan_ini' => Agenda::whereMonth('tanggal_mulai', now()->month)
                 ->whereYear('tanggal_mulai', now()->year)
                 ->count(),
-            
+
             // Keuangan
             'total_pemasukan' => 0,
             'total_pengeluaran' => 0,
             'saldo' => 0,
-            
+
             // Audit
             'audit_tertunda' => 0,
         ];
@@ -74,12 +71,12 @@ class DashboardController extends Controller
             $recent_surat_masuk = SuratMasuk::latest('tanggal_masuk')
                 ->limit(5)
                 ->get(['id', 'nomor_surat', 'perihal', 'tanggal_masuk']);
-            
+
             foreach ($recent_surat_masuk as $surat) {
                 $recent_activities[] = [
                     'type' => 'surat_masuk',
-                    'title' => 'Surat Masuk: ' . $surat->perihal,
-                    'description' => 'No: ' . $surat->nomor_surat,
+                    'title' => 'Surat Masuk: '.$surat->perihal,
+                    'description' => 'No: '.$surat->nomor_surat,
                     'date' => $surat->tanggal_masuk,
                 ];
             }
@@ -90,13 +87,13 @@ class DashboardController extends Controller
             $recent_kegiatan = Kegiatan::latest('created_at')
                 ->limit(5)
                 ->get(['id', 'nama_kegiatan', 'tanggal_mulai', 'tanggal_selesai']);
-            
+
             foreach ($recent_kegiatan as $kegiatan) {
                 $status = now()->toDateString() <= $kegiatan->tanggal_selesai ? 'Berlangsung' : 'Selesai';
                 $recent_activities[] = [
                     'type' => 'kegiatan',
-                    'title' => 'Kegiatan: ' . $kegiatan->nama_kegiatan,
-                    'description' => 'Status: ' . $status,
+                    'title' => 'Kegiatan: '.$kegiatan->nama_kegiatan,
+                    'description' => 'Status: '.$status,
                     'date' => $kegiatan->tanggal_mulai,
                 ];
             }

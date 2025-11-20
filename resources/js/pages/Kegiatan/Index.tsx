@@ -12,7 +12,14 @@ import { dashboard } from '@/routes';
 import { create, destroy, edit, show } from '@/routes/kegiatan';
 import { BreadcrumbItem, PageProps } from '@/types';
 import { Head, Link, router } from '@inertiajs/react';
-import { CalendarIcon, EyeIcon, PencilIcon, PlusIcon, TrashIcon, UsersIcon } from 'lucide-react';
+import {
+    CalendarIcon,
+    EyeIcon,
+    PencilIcon,
+    PlusIcon,
+    TrashIcon,
+    UsersIcon,
+} from 'lucide-react';
 
 interface Kegiatan {
     id: number;
@@ -40,7 +47,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ kegiatan }: KegiatanIndexProps) {
     const handleDelete = (item: Kegiatan) => {
-        if (confirm(`Apakah Anda yakin ingin menghapus kegiatan "${item.nama_kegiatan}"?`)) {
+        if (
+            confirm(
+                `Apakah Anda yakin ingin menghapus kegiatan "${item.nama_kegiatan}"?`,
+            )
+        ) {
             router.delete(destroy.url(item.id));
         }
     };
@@ -116,10 +127,13 @@ export default function Index({ kegiatan }: KegiatanIndexProps) {
                                         <TableCell>
                                             <div className="text-sm">
                                                 {formatDate(item.tanggal_mulai)}
-                                                {item.tanggal_mulai !== item.tanggal_selesai && (
+                                                {item.tanggal_mulai !==
+                                                    item.tanggal_selesai && (
                                                     <>
                                                         {' - '}
-                                                        {formatDate(item.tanggal_selesai)}
+                                                        {formatDate(
+                                                            item.tanggal_selesai,
+                                                        )}
                                                     </>
                                                 )}
                                             </div>
@@ -139,7 +153,9 @@ export default function Index({ kegiatan }: KegiatanIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={show.url(item.id)}>
+                                                    <Link
+                                                        href={show.url(item.id)}
+                                                    >
                                                         <EyeIcon className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -148,7 +164,9 @@ export default function Index({ kegiatan }: KegiatanIndexProps) {
                                                     variant="outline"
                                                     asChild
                                                 >
-                                                    <Link href={edit.url(item.id)}>
+                                                    <Link
+                                                        href={edit.url(item.id)}
+                                                    >
                                                         <PencilIcon className="size-4" />
                                                     </Link>
                                                 </Button>

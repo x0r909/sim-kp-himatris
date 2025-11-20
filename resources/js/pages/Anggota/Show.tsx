@@ -59,7 +59,8 @@ export default function Show({ anggotum }: ShowProps) {
     const getStatusBadgeClass = (status: string) => {
         const classes = {
             aktif: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200',
-            nonaktif: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
+            nonaktif:
+                'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
             alumni: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
         };
         return classes[status as keyof typeof classes] || '';
@@ -118,33 +119,55 @@ export default function Show({ anggotum }: ShowProps) {
                                     {namaLengkap.charAt(0).toUpperCase()}
                                 </div>
                             )}
-                            <h2 className="text-center text-xl font-bold">{namaLengkap}</h2>
-                            <p className="text-center text-sm text-muted-foreground">{anggotum.nim}</p>
+                            <h2 className="text-center text-xl font-bold">
+                                {namaLengkap}
+                            </h2>
+                            <p className="text-center text-sm text-muted-foreground">
+                                {anggotum.nim}
+                            </p>
                         </div>
                     </div>
 
                     {/* Data Pribadi */}
                     <div className="rounded-lg border bg-card p-6 md:col-span-2">
-                        <h3 className="mb-4 text-lg font-semibold">Data Pribadi</h3>
+                        <h3 className="mb-4 text-lg font-semibold">
+                            Data Pribadi
+                        </h3>
                         <div className="grid gap-4 md:grid-cols-2">
                             <div>
-                                <p className="text-sm text-muted-foreground">NIM</p>
+                                <p className="text-sm text-muted-foreground">
+                                    NIM
+                                </p>
                                 <p className="font-medium">{anggotum.nim}</p>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Jurusan</p>
-                                <p className="font-medium">{anggotum.jurusan}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Jurusan
+                                </p>
+                                <p className="font-medium">
+                                    {anggotum.jurusan}
+                                </p>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Jabatan Saat Ini</p>
-                                <p className="font-medium">{anggotum.jabatan}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Jabatan Saat Ini
+                                </p>
+                                <p className="font-medium">
+                                    {anggotum.jabatan}
+                                </p>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Tahun Masuk</p>
-                                <p className="font-medium">{anggotum.tahun_masuk}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Tahun Masuk
+                                </p>
+                                <p className="font-medium">
+                                    {anggotum.tahun_masuk}
+                                </p>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Status</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Status
+                                </p>
                                 <span
                                     className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getStatusBadgeClass(anggotum.status)}`}
                                 >
@@ -152,18 +175,28 @@ export default function Show({ anggotum }: ShowProps) {
                                 </span>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Total Absen</p>
-                                <p className="font-medium">{anggotum.total_absen}x</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Total Absen
+                                </p>
+                                <p className="font-medium">
+                                    {anggotum.total_absen}x
+                                </p>
                             </div>
                             <div>
-                                <p className="text-sm text-muted-foreground">Akun User</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Akun User
+                                </p>
                                 <p className="font-medium">
-                                    {anggotum.user ? `${anggotum.user.name} (@${anggotum.user.username})` : 'Tidak ada akun'}
+                                    {anggotum.user
+                                        ? `${anggotum.user.name} (@${anggotum.user.username})`
+                                        : 'Tidak ada akun'}
                                 </p>
                             </div>
                             {anggotum.sp_level > 0 && (
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Status Peringatan</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Status Peringatan
+                                    </p>
                                     <span
                                         className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${getSpBadgeClass(anggotum.sp_level)}`}
                                     >
@@ -174,8 +207,12 @@ export default function Show({ anggotum }: ShowProps) {
                         </div>
                         {anggotum.keterangan_sp && (
                             <div className="mt-4">
-                                <p className="text-sm text-muted-foreground">Keterangan SP</p>
-                                <p className="font-medium">{anggotum.keterangan_sp}</p>
+                                <p className="text-sm text-muted-foreground">
+                                    Keterangan SP
+                                </p>
+                                <p className="font-medium">
+                                    {anggotum.keterangan_sp}
+                                </p>
                             </div>
                         )}
                     </div>
@@ -183,7 +220,9 @@ export default function Show({ anggotum }: ShowProps) {
 
                 {/* Histori Jabatan */}
                 <div className="rounded-lg border bg-card p-6">
-                    <h3 className="mb-4 text-lg font-semibold">Histori Jabatan</h3>
+                    <h3 className="mb-4 text-lg font-semibold">
+                        Histori Jabatan
+                    </h3>
                     <div className="rounded-lg border">
                         <Table>
                             <TableHeader>
@@ -198,7 +237,10 @@ export default function Show({ anggotum }: ShowProps) {
                             <TableBody>
                                 {anggotum.histori_jabatan.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan={5} className="text-center">
+                                        <TableCell
+                                            colSpan={5}
+                                            className="text-center"
+                                        >
                                             Tidak ada histori jabatan
                                         </TableCell>
                                     </TableRow>
@@ -208,7 +250,9 @@ export default function Show({ anggotum }: ShowProps) {
                                             <TableCell className="font-medium">
                                                 {histori.jabatan}
                                             </TableCell>
-                                            <TableCell>{histori.tahun_mulai}</TableCell>
+                                            <TableCell>
+                                                {histori.tahun_mulai}
+                                            </TableCell>
                                             <TableCell>
                                                 {histori.tahun_selesai || '-'}
                                             </TableCell>

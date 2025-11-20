@@ -1,10 +1,32 @@
-import AppLayout from '@/layouts/app-layout';
+import {
+    create as auditCreate,
+    show as auditShow,
+} from '@/actions/App/Http/Controllers/AuditKeuanganController';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link, router } from '@inertiajs/react';
-import { PlusIcon, EyeIcon, ArrowDownIcon, ArrowUpIcon, ClipboardCheckIcon } from 'lucide-react';
-import { create as auditCreate, show as auditShow } from '@/actions/App/Http/Controllers/AuditKeuanganController';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
+import AppLayout from '@/layouts/app-layout';
+import { Link } from '@inertiajs/react';
+import {
+    ArrowDownIcon,
+    ArrowUpIcon,
+    ClipboardCheckIcon,
+    EyeIcon,
+    PlusIcon,
+} from 'lucide-react';
 
 interface AuditKeuangan {
     id: number;
@@ -69,7 +91,9 @@ export default function Index({ auditLogs, canManage }: IndexProps) {
                             <ClipboardCheckIcon className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold tracking-tight">Audit Keuangan</h1>
+                            <h1 className="text-2xl font-bold tracking-tight">
+                                Audit Keuangan
+                            </h1>
                             <p className="text-sm text-muted-foreground">
                                 Log audit transaksi keuangan
                             </p>
@@ -88,64 +112,117 @@ export default function Index({ auditLogs, canManage }: IndexProps) {
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle>Daftar Audit</CardTitle>
-                        <CardDescription>Riwayat audit transaksi keuangan</CardDescription>
+                        <CardDescription>
+                            Riwayat audit transaksi keuangan
+                        </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
                         {auditLogs.length > 0 ? (
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead className="w-[140px]">Jenis</TableHead>
+                                        <TableHead className="w-[140px]">
+                                            Jenis
+                                        </TableHead>
                                         <TableHead>Kategori</TableHead>
-                                        <TableHead className="text-right">Nominal</TableHead>
-                                        <TableHead className="w-[120px]">Tgl Transaksi</TableHead>
-                                        <TableHead className="w-[120px]">Status</TableHead>
-                                        <TableHead className="w-[120px]">Tgl Audit</TableHead>
+                                        <TableHead className="text-right">
+                                            Nominal
+                                        </TableHead>
+                                        <TableHead className="w-[120px]">
+                                            Tgl Transaksi
+                                        </TableHead>
+                                        <TableHead className="w-[120px]">
+                                            Status
+                                        </TableHead>
+                                        <TableHead className="w-[120px]">
+                                            Tgl Audit
+                                        </TableHead>
                                         <TableHead>Auditor</TableHead>
-                                        <TableHead className="max-w-[200px]">Catatan</TableHead>
-                                        <TableHead className="w-[80px] text-center">Aksi</TableHead>
+                                        <TableHead className="max-w-[200px]">
+                                            Catatan
+                                        </TableHead>
+                                        <TableHead className="w-[80px] text-center">
+                                            Aksi
+                                        </TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {auditLogs.map((audit) => (
-                                        <TableRow key={audit.id} className="hover:bg-muted/50">
+                                        <TableRow
+                                            key={audit.id}
+                                            className="hover:bg-muted/50"
+                                        >
                                             <TableCell>
                                                 <div className="flex items-center gap-1.5">
-                                                    {audit.keuangan.jenis === 'masuk' ? (
+                                                    {audit.keuangan.jenis ===
+                                                    'masuk' ? (
                                                         <>
                                                             <ArrowDownIcon className="h-3.5 w-3.5 text-green-500" />
-                                                            <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Masuk</span>
+                                                            <span className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                                                                Masuk
+                                                            </span>
                                                         </>
                                                     ) : (
                                                         <>
                                                             <ArrowUpIcon className="h-3.5 w-3.5 text-red-500" />
-                                                            <span className="text-sm font-medium text-red-600 dark:text-red-400">Keluar</span>
+                                                            <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                                                                Keluar
+                                                            </span>
                                                         </>
                                                     )}
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="font-medium">{audit.keuangan.kategori}</TableCell>
-                                            <TableCell className={`text-right text-sm font-semibold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
-                                                {formatCurrency(audit.keuangan.nominal)}
+                                            <TableCell className="font-medium">
+                                                {audit.keuangan.kategori}
                                             </TableCell>
-                                            <TableCell className="text-sm text-muted-foreground">{audit.keuangan.tanggal_transaksi}</TableCell>
+                                            <TableCell
+                                                className={`text-right text-sm font-semibold ${audit.keuangan.jenis === 'masuk' ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}
+                                            >
+                                                {formatCurrency(
+                                                    audit.keuangan.nominal,
+                                                )}
+                                            </TableCell>
+                                            <TableCell className="text-sm text-muted-foreground">
+                                                {
+                                                    audit.keuangan
+                                                        .tanggal_transaksi
+                                                }
+                                            </TableCell>
                                             <TableCell>
-                                                <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${getStatusBadgeClass(audit.status_audit)}`}>
-                                                    {getStatusText(audit.status_audit)}
+                                                <span
+                                                    className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${getStatusBadgeClass(audit.status_audit)}`}
+                                                >
+                                                    {getStatusText(
+                                                        audit.status_audit,
+                                                    )}
                                                 </span>
                                             </TableCell>
-                                            <TableCell className="text-sm text-muted-foreground">{audit.tanggal_audit}</TableCell>
-                                            <TableCell className="text-sm">{audit.auditor_name}</TableCell>
+                                            <TableCell className="text-sm text-muted-foreground">
+                                                {audit.tanggal_audit}
+                                            </TableCell>
+                                            <TableCell className="text-sm">
+                                                {audit.auditor_name}
+                                            </TableCell>
                                             <TableCell>
                                                 <span className="line-clamp-2 text-sm text-muted-foreground">
                                                     {audit.catatan}
                                                 </span>
                                             </TableCell>
                                             <TableCell className="text-center">
-                                                <Link href={auditShow.url(audit.id)}>
-                                                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                                                <Link
+                                                    href={auditShow.url(
+                                                        audit.id,
+                                                    )}
+                                                >
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="h-8 w-8 p-0"
+                                                    >
                                                         <EyeIcon className="h-4 w-4" />
-                                                        <span className="sr-only">Lihat detail</span>
+                                                        <span className="sr-only">
+                                                            Lihat detail
+                                                        </span>
                                                     </Button>
                                                 </Link>
                                             </TableCell>
@@ -155,8 +232,10 @@ export default function Index({ auditLogs, canManage }: IndexProps) {
                             </Table>
                         ) : (
                             <div className="flex flex-col items-center justify-center py-12 text-center">
-                                <ClipboardCheckIcon className="h-12 w-12 text-muted-foreground/40 mb-2" />
-                                <p className="text-sm text-muted-foreground">Belum ada audit keuangan</p>
+                                <ClipboardCheckIcon className="mb-2 h-12 w-12 text-muted-foreground/40" />
+                                <p className="text-sm text-muted-foreground">
+                                    Belum ada audit keuangan
+                                </p>
                             </div>
                         )}
                     </CardContent>

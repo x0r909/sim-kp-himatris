@@ -33,7 +33,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Show({ suratKeluar }: ShowProps) {
     const handleDelete = () => {
-        if (confirm(`Apakah Anda yakin ingin menghapus surat ${suratKeluar.nomor_surat}?`)) {
+        if (
+            confirm(
+                `Apakah Anda yakin ingin menghapus surat ${suratKeluar.nomor_surat}?`,
+            )
+        ) {
             router.delete(destroy.url(suratKeluar.id));
         }
     };
@@ -108,14 +112,18 @@ export default function Show({ suratKeluar }: ShowProps) {
                             <h3 className="mb-1 text-sm font-medium text-muted-foreground">
                                 Tanda Tangan
                             </h3>
-                            <p className="text-lg">{suratKeluar.tanda_tangan}</p>
+                            <p className="text-lg">
+                                {suratKeluar.tanda_tangan}
+                            </p>
                         </div>
 
                         <div>
                             <h3 className="mb-1 text-sm font-medium text-muted-foreground">
                                 Dibuat Oleh
                             </h3>
-                            <p className="text-lg">{suratKeluar.creator.name}</p>
+                            <p className="text-lg">
+                                {suratKeluar.creator.name}
+                            </p>
                         </div>
 
                         <div className="md:col-span-2">

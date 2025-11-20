@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('kegiatan', KegiatanController::class);
     Route::resource('absensi', AbsensiController::class);
     Route::resource('agenda', AgendaController::class);
-    
+
     // Keuangan routes
     Route::resource('keuangan', KeuanganController::class);
     Route::get('analisis-keuangan', [AnalisisKeuanganController::class, 'index'])->name('analisis-keuangan');

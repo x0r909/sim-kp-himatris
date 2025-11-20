@@ -29,6 +29,7 @@ package-lock.json
 .env.production
 .env.local
 .env.*.local
+.env.testing
 
 # IDE & Editors
 /.fleet

@@ -222,6 +222,24 @@ Seeder akan membuat user default:
 php artisan storage:link
 ```
 
+### 6. Setup Testing Database (Optional)
+
+Untuk menjalankan tests, buat database testing terpisah:
+
+```bash
+# Buat database testing
+mysql -u root -p
+
+# Di MySQL prompt:
+CREATE DATABASE himatris_testing;
+GRANT ALL PRIVILEGES ON himatris_testing.* TO 'himatris'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+# Jalankan migrations untuk testing database
+php artisan migrate --env=testing
+```
+
 ### 7. Build Frontend Assets
 
 ```bash
@@ -289,11 +307,58 @@ npm run build
 
 ## 🧪 Testing
 
+### Setup Testing Database
+
+#### Opsi 1: Menggunakan Script Otomatis
+
+**Windows (PowerShell):**
+```powershell
+.\setup-testing.ps1
+```
+
+**Linux/Mac (Bash):**
+```bash
+chmod +x setup-testing.sh
+./setup-testing.sh
+```
+
+#### Opsi 2: Manual Setup
+
+**Untuk MySQL (Recommended):**
+```bash
+# Buat database testing
+mysql -u root -p
+
+# Di MySQL prompt:
+CREATE DATABASE himatris_testing;
+GRANT ALL PRIVILEGES ON himatris_testing.* TO 'himatris'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+
+# Jalankan migrations
+php artisan migrate --env=testing --force
+```
+
+**Untuk SQLite (jika PHP memiliki PDO SQLite extension):**
+```bash
+# Edit phpunit.xml dan ubah:
+# <env name="DB_CONNECTION" value="sqlite"/>
+# <env name="DB_DATABASE" value=":memory:"/>
+
+# Testing akan menggunakan in-memory database otomatis
+# Pastikan extension pdo_sqlite enabled di php.ini
+```
+
+### Menjalankan Tests
+
 ```bash
 # Jalankan semua tests
 php artisan test
 
-# atau
+# Menggunakan Pest langsung
+./vendor/bin/pest
+
+# Menggunakan composer script
 composer test
 
 # Jalankan test spesifik
@@ -301,7 +366,55 @@ php artisan test --filter=UserTest
 
 # Jalankan test dengan coverage
 php artisan test --coverage
+
+# Jalankan test untuk specific file
+php artisan test tests/Feature/UserManagementTest.php
+
+# Jalankan hanya Unit tests
+./vendor/bin/pest --testsuite=Unit
+
+# Jalankan hanya Feature tests
+./vendor/bin/pest --testsuite=Feature
 ```
+
+### Testing di GitHub Actions
+
+GitHub Actions workflow (`.github/workflows/tests.yml`) sudah dikonfigurasi dengan:
+- MySQL 8.0 service container
+- Automatic database migration
+- Code quality checks (Pint, ESLint, TypeScript)
+- Asset building
+
+Workflow akan berjalan otomatis pada:
+- Push ke branch `main` atau `develop`
+- Pull request ke branch `main` atau `develop`
+
+### Membuat Test Baru
+
+```bash
+# Feature test (untuk testing end-to-end functionality)
+php artisan make:test UserManagementTest
+
+# Unit test (untuk testing isolated components)
+php artisan make:test --unit CalculationTest --pest
+
+# Test dengan Pest
+php artisan make:test --pest AnggotaTest
+```
+
+### Troubleshooting Testing
+
+**Error: "could not find driver"**
+- Pastikan PHP memiliki extension `pdo_mysql` atau `pdo_sqlite`
+- Check dengan: `php -m | grep pdo`
+
+**Error: "Access denied for user"**
+- Periksa credentials di `.env.testing`
+- Pastikan database user memiliki privileges
+
+**Error: "Database does not exist"**
+- Jalankan script setup: `.\setup-testing.ps1` atau `./setup-testing.sh`
+- Atau buat database manual seperti di atas
 
 ## 📝 Code Quality
 

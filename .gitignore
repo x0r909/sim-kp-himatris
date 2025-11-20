@@ -29,6 +29,8 @@ package-lock.json
 .env.production
 .env.local
 .env.*.local
+
+# Testing Environment (comment out jika ingin commit .env.testing)
 .env.testing
 
 # IDE & Editors

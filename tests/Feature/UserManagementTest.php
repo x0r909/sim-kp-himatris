@@ -20,12 +20,12 @@ it('can view users index page as admin', function () {
         ->assertInertia(fn ($page) => $page->component('Users/Index'));
 });
 
-it('can view users index page as bendahara', function () {
-    $bendahara = User::factory()->create(['role' => 'bendahara']);
+it('cannot view users index page as bendahara', function () {
+    $bendahara = User::factory()->create(['role' => 'bendahara_1']);
 
     actingAs($bendahara)
         ->get(route('users.index'))
-        ->assertOk();
+        ->assertForbidden();
 });
 
 it('cannot view users index page as anggota', function () {
@@ -42,6 +42,7 @@ it('can create a new user as admin', function () {
     actingAs($admin)
         ->post(route('users.store'), [
             'name' => 'New User',
+            'username' => 'newuser',
             'email' => 'newuser@test.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
@@ -70,6 +71,7 @@ it('can update user as admin', function () {
     $admin = User::factory()->create(['role' => 'admin']);
     $user = User::factory()->create([
         'name' => 'Old Name',
+        'username' => 'olduser',
         'email' => 'old@test.com',
         'role' => 'anggota',
     ]);
@@ -77,8 +79,9 @@ it('can update user as admin', function () {
     actingAs($admin)
         ->put(route('users.update', $user), [
             'name' => 'Updated Name',
+            'username' => 'updateduser',
             'email' => 'updated@test.com',
-            'role' => 'bendahara',
+            'role' => 'bendahara_1',
             'status' => 'aktif',
         ])
         ->assertRedirect(route('users.index'));
@@ -87,7 +90,7 @@ it('can update user as admin', function () {
         'id' => $user->id,
         'name' => 'Updated Name',
         'email' => 'updated@test.com',
-        'role' => 'bendahara',
+        'role' => 'bendahara_1',
     ]);
 });
 

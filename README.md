@@ -222,24 +222,6 @@ Seeder akan membuat user default:
 php artisan storage:link
 ```
 
-### 6. Setup Testing Database (Optional)
-
-Untuk menjalankan tests, buat database testing terpisah:
-
-```bash
-# Buat database testing
-mysql -u root -p
-
-# Di MySQL prompt:
-CREATE DATABASE himatris_testing;
-GRANT ALL PRIVILEGES ON himatris_testing.* TO 'himatris'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-
-# Jalankan migrations untuk testing database
-php artisan migrate --env=testing
-```
-
 ### 7. Build Frontend Assets
 
 ```bash
@@ -309,22 +291,8 @@ npm run build
 
 ### Setup Testing Database
 
-#### Opsi 1: Menggunakan Script Otomatis
+Untuk menjalankan tests, buat database testing terpisah:
 
-**Windows (PowerShell):**
-```powershell
-.\setup-testing.ps1
-```
-
-**Linux/Mac (Bash):**
-```bash
-chmod +x setup-testing.sh
-./setup-testing.sh
-```
-
-#### Opsi 2: Manual Setup
-
-**Untuk MySQL (Recommended):**
 ```bash
 # Buat database testing
 mysql -u root -p
@@ -335,18 +303,8 @@ GRANT ALL PRIVILEGES ON himatris_testing.* TO 'himatris'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 
-# Jalankan migrations
-php artisan migrate --env=testing --force
-```
-
-**Untuk SQLite (jika PHP memiliki PDO SQLite extension):**
-```bash
-# Edit phpunit.xml dan ubah:
-# <env name="DB_CONNECTION" value="sqlite"/>
-# <env name="DB_DATABASE" value=":memory:"/>
-
-# Testing akan menggunakan in-memory database otomatis
-# Pastikan extension pdo_sqlite enabled di php.ini
+# Jalankan migrations untuk testing database
+php artisan migrate --env=testing
 ```
 
 ### Menjalankan Tests

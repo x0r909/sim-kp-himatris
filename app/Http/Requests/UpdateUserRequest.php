@@ -19,7 +19,7 @@ class UpdateUserRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($this->user), 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', Rule::in(['admin', 'bendahara', 'anggota'])],
+            'role' => ['required', Rule::in(['admin', 'ketua', 'wakil_ketua', 'sekretaris_umum', 'sekretaris_1', 'sekretaris_2', 'bendahara_1', 'bendahara_2', 'anggota'])],
             'status' => ['required', Rule::in(['aktif', 'nonaktif'])],
             'foto' => ['nullable', 'image', 'max:2048'],
         ];

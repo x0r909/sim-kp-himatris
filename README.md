@@ -1,6 +1,6 @@
 # SIM-KP HIMATRIS
 
-Sistem Informasi Manajemen Kepengurusan Himpunan Mahasiswa Teknik Informatika dan Sistem Informasi (HIMATRIS).
+Sistem Informasi Manajemen Kepengurusan Himpunan Mahasiswa Komputer dan Bisnis (HIMATRIS).
 
 ## 📋 Deskripsi
 
@@ -444,4 +444,4 @@ Jika ada pertanyaan atau issue, silakan buat issue di GitHub repository atau hub
 
 ---
 
-**Dibuat dengan ❤️ untuk HIMATRIS**
+**Dibuat dengan cinta❤️ untuk HIMATRIS**
